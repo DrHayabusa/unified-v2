@@ -1,0 +1,54 @@
+name: MVA production validation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            react-ui/package-lock.json
+            server/package-lock.json
+
+      - name: Install frontend dependencies
+        working-directory: react-ui
+        run: npm ci
+
+      - name: Install API dependencies
+        working-directory: server
+        run: npm ci
+
+      - name: Test frontend parsing and reporting
+        working-directory: react-ui
+        run: npm test
+
+      - name: Test API, tenant security, and local LLM contracts
+        working-directory: server
+        run: npm test
+
+      - name: Build production frontend
+        working-directory: react-ui
+        run: npm run build
+
+      - name: Scan tracked files for provider secrets
+        shell: bash
+        run: |
+          if git grep -nE 'nvapi-[A-Za-z0-9_-]{20,}|gsk_[A-Za-z0-9_-]{20,}|sk-or-v1-[A-Za-z0-9_-]{20,}|-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----'; then
+            echo "A provider credential or private key pattern was found."
+            exit 1
+          fi

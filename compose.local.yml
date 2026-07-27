@@ -1,0 +1,61 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: mva
+      POSTGRES_USER: mva
+      POSTGRES_PASSWORD: ${MVA_POSTGRES_PASSWORD:-mva_local_only}
+    ports:
+      - "127.0.0.1:55432:5432"
+    volumes:
+      - mva-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mva -d mva"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  api:
+    build:
+      context: ./server
+    environment:
+      DATABASE_URL: postgresql://mva:${MVA_POSTGRES_PASSWORD:-mva_local_only}@postgres:5432/mva
+      HOST: 0.0.0.0
+      PORT: 8787
+      CORS_ORIGINS: http://127.0.0.1:8820,http://localhost:8820
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      LITELLM_URL: ${LITELLM_URL:-http://host.docker.internal:4000}
+      LITELLM_API_KEY: ${LITELLM_API_KEY:?Set LITELLM_API_KEY in .env}
+      LITELLM_MODEL: ${LITELLM_MODEL:?Set LITELLM_MODEL in .env}
+      LITELLM_CONNECT_TIMEOUT_MS: ${LITELLM_CONNECT_TIMEOUT_MS:-10000}
+      LITELLM_READ_TIMEOUT_MS: ${LITELLM_READ_TIMEOUT_MS:-600000}
+    ports:
+      - "127.0.0.1:8787:8787"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8787/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 5s
+      timeout: 4s
+      retries: 20
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./react-ui
+      dockerfile: Dockerfile.local
+      args:
+        VITE_MVA_DATABASE_API_URL: same-origin
+    ports:
+      - "127.0.0.1:8820:80"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  mva-postgres-data:

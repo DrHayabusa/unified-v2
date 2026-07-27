@@ -1,0 +1,27 @@
+{
+  "tool": "openshift",
+  "label": "Red Hat OpenShift",
+  "inventory": "asset_inventory/openshift_asset_inventory.csv",
+  "hostDiscoveryFiles": [
+    "host_discovery/openshift_host_discovery_2026-03.csv",
+    "host_discovery/openshift_host_discovery_2026-04.csv",
+    "host_discovery/openshift_host_discovery_2026-05.csv",
+    "host_discovery/openshift_host_discovery_2026-06.csv",
+    "host_discovery/openshift_host_discovery_2026-07.csv"
+  ],
+  "scanResultFiles": [
+    "scan_results/openshift_april_2026_100plus.csv",
+    "scan_results/openshift_july_2026_100plus.csv",
+    "scan_results/openshift_june_2026_100plus.csv",
+    "scan_results/openshift_may_2026_100plus.csv"
+  ],
+  "monthlyFiles": [
+    "scan_results/openshift_april_2026_100plus.csv",
+    "scan_results/openshift_july_2026_100plus.csv",
+    "scan_results/openshift_june_2026_100plus.csv",
+    "scan_results/openshift_may_2026_100plus.csv"
+  ],
+  "adhocFile": "scan_results/openshift_july_2026_100plus.csv",
+  "expectedDiscovery": "expected_results/host_discovery_metrics.json",
+  "expectedScanner": "expected_results/scanner_metrics.json"
+}

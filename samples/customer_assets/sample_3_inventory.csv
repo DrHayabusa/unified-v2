@@ -1,0 +1,9 @@
+IP Address,DNS Name,Host Name,Asset ID,Asset Type,Platform,Business Unit,Criticality,Responsible Team,Internet Exposed,In Scope
+10.43.10.11,aws-app-01.sample3.local,AWS-APP-01,S3-001,Cloud Asset,AWS EC2 Amazon Linux,Cloud,Critical,Cloud Platform,Yes,Yes
+10.43.10.12,az-api-01.sample3.local,AZ-API-01,S3-002,Cloud Asset,Microsoft Azure VM,Cloud,High,Cloud Platform,Yes,Yes
+10.43.20.11,k8s-cp-01.sample3.local,K8S-CP-01,S3-003,Container Platform,Kubernetes 1.32,Digital Services,Critical,Container Platform,No,Yes
+10.43.20.12,ocp-node-01.sample3.local,OCP-NODE-01,S3-004,Container Platform,Red Hat OpenShift 4,Digital Services,High,Container Platform,No,Yes
+10.43.30.11,lap-fin-01.sample3.local,LAP-FIN-01,S3-005,Endpoint,Windows 11 Enterprise,Finance,High,Endpoint Engineering,No,Yes
+10.43.30.12,lap-hr-01.sample3.local,LAP-HR-01,S3-006,Endpoint,macOS 15,Human Resources,Medium,Endpoint Engineering,No,Yes
+10.43.30.13,lap-dev-01.sample3.local,LAP-DEV-01,S3-007,Endpoint,Ubuntu Desktop 24.04,Engineering,High,Endpoint Engineering,No,Yes
+10.43.10.13,gcp-job-01.sample3.local,GCP-JOB-01,S3-008,Cloud Asset,Google Compute Engine,Cloud,High,Cloud Platform,No,Yes

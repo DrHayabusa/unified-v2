@@ -1,0 +1,349 @@
+{
+  "source": "CrowdStrike",
+  "inputs": {
+    "monthly": [
+      "samples/crowdstrike_100_row/crowdstrike_vulnerabilities_april_2026_100plus.csv",
+      "samples/crowdstrike_100_row/crowdstrike_vulnerabilities_may_2026_100plus.csv",
+      "samples/crowdstrike_100_row/crowdstrike_vulnerabilities_june_2026_100plus.csv",
+      "samples/crowdstrike_100_row/crowdstrike_vulnerabilities_july_2026_100plus.csv"
+    ],
+    "adhoc": "samples/crowdstrike_100_row/crowdstrike_vulnerability_per_asset_july_2026_100plus.csv"
+  },
+  "monthly": {
+    "reportRange": "April 2026 - July 2026",
+    "periods": [
+      "April 2026",
+      "May 2026",
+      "June 2026",
+      "July 2026"
+    ],
+    "totalOpen": 120,
+    "newFindings": 20,
+    "notClosed": 100,
+    "patchedFindings": 25,
+    "patchedFormula": {
+      "previousOpen": 125,
+      "plusNew": 20,
+      "minusCurrentOpen": 120,
+      "result": 25
+    },
+    "patchPriority": {
+      "P1": 20,
+      "P2": 60,
+      "P3": 20,
+      "P4": 20
+    },
+    "ageByPatchPriority": {
+      "P1": {
+        ">7 days": 20,
+        ">30 days": 16,
+        ">60 days": 12,
+        ">180 days (6+ months)": 2
+      },
+      "P2": {
+        ">7 days": 60,
+        ">30 days": 51,
+        ">60 days": 38,
+        ">180 days (6+ months)": 8
+      },
+      "P3": {
+        ">7 days": 20,
+        ">30 days": 16,
+        ">60 days": 12,
+        ">180 days (6+ months)": 2
+      },
+      "P4": {
+        ">7 days": 20,
+        ">30 days": 17,
+        ">60 days": 13,
+        ">180 days (6+ months)": 3
+      }
+    },
+    "discoveredLast3Periods": [
+      {
+        "month": "May 2026",
+        "period": "May 2026",
+        "discoveredCount": 30
+      },
+      {
+        "month": "June 2026",
+        "period": "June 2026",
+        "discoveredCount": 25
+      },
+      {
+        "month": "July 2026",
+        "period": "July 2026",
+        "discoveredCount": 20
+      }
+    ],
+    "patchedLast3Periods": [
+      {
+        "month": "May 2026",
+        "period": "May 2026",
+        "remediatedCount": 20
+      },
+      {
+        "month": "June 2026",
+        "period": "June 2026",
+        "remediatedCount": 20
+      },
+      {
+        "month": "July 2026",
+        "period": "July 2026",
+        "remediatedCount": 25
+      }
+    ],
+    "validation": {
+      "valid": true,
+      "checks": {
+        "discoveredTrendLast3Periods": true,
+        "totalOpenIdentity": true,
+        "totalOpenByPatchPriority": true,
+        "ageByPatchPriority": true,
+        "patchedTrendAndFormula": true
+      },
+      "failures": []
+    },
+    "qualys": null,
+    "crowdstrike": {
+      "exploitAvailable": 40,
+      "cisaKev": 11,
+      "internetExposed": 24,
+      "internetExposureObserved": 120,
+      "internetExposureUnknown": 0,
+      "criticalAssets": 12,
+      "confirmedFindings": 96,
+      "potentialFindings": 24,
+      "confidenceDistribution": [
+        {
+          "confidence": "Confirmed",
+          "vulnerabilityCount": 96
+        },
+        {
+          "confidence": "Potential",
+          "vulnerabilityCount": 24
+        }
+      ],
+      "exploitEvidenceSources": [
+        {
+          "source": "No positive exploit evidence",
+          "vulnerabilityCount": 80
+        },
+        {
+          "source": "Exploit status label",
+          "vulnerabilityCount": 40
+        }
+      ],
+      "topProducts": [
+        {
+          "product": "Apache Log4j",
+          "vulnerabilityCount": 15
+        },
+        {
+          "product": "Apache Tomcat",
+          "vulnerabilityCount": 15
+        },
+        {
+          "product": "Cisco IOS XE",
+          "vulnerabilityCount": 15
+        },
+        {
+          "product": "Google Chrome",
+          "vulnerabilityCount": 15
+        },
+        {
+          "product": "Linux Kernel",
+          "vulnerabilityCount": 15
+        },
+        {
+          "product": "Microsoft Exchange Server",
+          "vulnerabilityCount": 15
+        },
+        {
+          "product": "Microsoft Windows Server",
+          "vulnerabilityCount": 15
+        },
+        {
+          "product": "OpenSSL",
+          "vulnerabilityCount": 15
+        }
+      ],
+      "topAssets": [
+        {
+          "asset": "cs-asset-001.corp.example",
+          "vulnerabilityCount": 3
+        },
+        {
+          "asset": "cs-asset-002.corp.example",
+          "vulnerabilityCount": 3
+        },
+        {
+          "asset": "cs-asset-003.corp.example",
+          "vulnerabilityCount": 3
+        },
+        {
+          "asset": "cs-asset-004.corp.example",
+          "vulnerabilityCount": 3
+        },
+        {
+          "asset": "cs-asset-005.corp.example",
+          "vulnerabilityCount": 3
+        },
+        {
+          "asset": "cs-asset-021.corp.example",
+          "vulnerabilityCount": 3
+        },
+        {
+          "asset": "cs-asset-022.corp.example",
+          "vulnerabilityCount": 3
+        },
+        {
+          "asset": "cs-asset-023.corp.example",
+          "vulnerabilityCount": 3
+        },
+        {
+          "asset": "cs-asset-024.corp.example",
+          "vulnerabilityCount": 3
+        },
+        {
+          "asset": "cs-asset-025.corp.example",
+          "vulnerabilityCount": 3
+        }
+      ]
+    },
+    "openshift": null
+  },
+  "adhoc": {
+    "totalOpen": 120,
+    "distinctAssets": 45,
+    "exploitAvailable": 40,
+    "severity": {
+      "Critical": 30,
+      "High": 30,
+      "Medium": 30,
+      "Low": 30,
+      "Info": 0,
+      "Unknown": 0
+    },
+    "patchPriority": {
+      "P1": 20,
+      "P2": 60,
+      "P3": 20,
+      "P4": 20
+    },
+    "qualys": null,
+    "crowdstrike": {
+      "exploitAvailable": 40,
+      "cisaKev": 11,
+      "internetExposed": 24,
+      "internetExposureObserved": 120,
+      "internetExposureUnknown": 0,
+      "criticalAssets": 12,
+      "confirmedFindings": 96,
+      "potentialFindings": 24,
+      "confidenceDistribution": [
+        {
+          "confidence": "Confirmed",
+          "vulnerabilityCount": 96
+        },
+        {
+          "confidence": "Potential",
+          "vulnerabilityCount": 24
+        }
+      ],
+      "exploitEvidenceSources": [
+        {
+          "source": "No positive exploit evidence",
+          "vulnerabilityCount": 80
+        },
+        {
+          "source": "Exploit status label",
+          "vulnerabilityCount": 40
+        }
+      ],
+      "topProducts": [
+        {
+          "product": "Apache Log4j",
+          "vulnerabilityCount": 15
+        },
+        {
+          "product": "Apache Tomcat",
+          "vulnerabilityCount": 15
+        },
+        {
+          "product": "Cisco IOS XE",
+          "vulnerabilityCount": 15
+        },
+        {
+          "product": "Google Chrome",
+          "vulnerabilityCount": 15
+        },
+        {
+          "product": "Linux Kernel",
+          "vulnerabilityCount": 15
+        },
+        {
+          "product": "Microsoft Exchange Server",
+          "vulnerabilityCount": 15
+        },
+        {
+          "product": "Microsoft Windows Server",
+          "vulnerabilityCount": 15
+        },
+        {
+          "product": "OpenSSL",
+          "vulnerabilityCount": 15
+        }
+      ],
+      "topAssets": [
+        {
+          "asset": "cs-asset-001.corp.example",
+          "vulnerabilityCount": 3
+        },
+        {
+          "asset": "cs-asset-002.corp.example",
+          "vulnerabilityCount": 3
+        },
+        {
+          "asset": "cs-asset-003.corp.example",
+          "vulnerabilityCount": 3
+        },
+        {
+          "asset": "cs-asset-004.corp.example",
+          "vulnerabilityCount": 3
+        },
+        {
+          "asset": "cs-asset-005.corp.example",
+          "vulnerabilityCount": 3
+        },
+        {
+          "asset": "cs-asset-021.corp.example",
+          "vulnerabilityCount": 3
+        },
+        {
+          "asset": "cs-asset-022.corp.example",
+          "vulnerabilityCount": 3
+        },
+        {
+          "asset": "cs-asset-023.corp.example",
+          "vulnerabilityCount": 3
+        },
+        {
+          "asset": "cs-asset-024.corp.example",
+          "vulnerabilityCount": 3
+        },
+        {
+          "asset": "cs-asset-025.corp.example",
+          "vulnerabilityCount": 3
+        }
+      ]
+    },
+    "openshift": null
+  },
+  "outputs": {
+    "monthlyWorkbook": "final/Production Evidence/CrowdStrike/MVA_CrowdStrike_Monthly_Report.xlsx",
+    "adhocWorkbook": "final/Production Evidence/CrowdStrike/MVA_CrowdStrike_Adhoc_Report.xlsx",
+    "remediationGuide": "final/Production Evidence/CrowdStrike/MVA_CrowdStrike_July_2026_Remediation_Guide.pdf",
+    "executiveDashboard": "final/Production Evidence/CrowdStrike/MVA_CrowdStrike_July_2026_Executive_Dashboard.pdf"
+  }
+}

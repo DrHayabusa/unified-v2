@@ -1,0 +1,9 @@
+IP Address,DNS Name,Host Name,Asset ID,Asset Type,Platform,Business Unit,Criticality,Responsible Team,Internet Exposed,In Scope
+10.41.10.11,lin-app-01.sample1.local,LIN-APP-01,S1-001,Linux Server,Red Hat Enterprise Linux 9,Digital Services,Critical,Linux Operations,No,Yes
+10.41.10.12,lin-app-02.sample1.local,LIN-APP-02,S1-002,Linux Server,Ubuntu Server 24.04,Digital Services,High,Linux Operations,No,Yes
+10.41.20.11,win-api-01.sample1.local,WIN-API-01,S1-003,Windows Server,Windows Server 2022,Digital Services,Critical,Windows Operations,No,Yes
+10.41.20.12,win-file-01.sample1.local,WIN-FILE-01,S1-004,Windows Server,Windows Server 2019,Corporate Services,High,Windows Operations,No,Yes
+10.41.30.11,pg-core-01.sample1.local,PG-CORE-01,S1-005,Database,PostgreSQL 17,Digital Services,Critical,Database Engineering,No,Yes
+10.41.30.12,ora-fin-01.sample1.local,ORA-FIN-01,S1-006,Database,Oracle Database 19c,Finance,Critical,Database Engineering,No,Yes
+10.41.10.13,lin-batch-01.sample1.local,LIN-BATCH-01,S1-007,Linux Server,SUSE Linux Enterprise 15,Finance,High,Linux Operations,No,Yes
+10.41.20.13,win-dc-01.sample1.local,WIN-DC-01,S1-008,Windows Server,Windows Server 2022,Infrastructure,Critical,Windows Operations,No,Yes

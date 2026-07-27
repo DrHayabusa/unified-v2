@@ -1,0 +1,53 @@
+.DS_Store
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+server/node_modules/
+react-ui/dist/
+.local/
+.secrets/
+.env
+.env.*
+!.env.example
+!.env.production.example
+tmp/
+react-ui/public/design-concepts/
+
+# Keep only the current release evidence under output.
+output/*
+!output/validation/
+output/validation/*
+!output/validation/api-tests-2026-07-26.tap
+!output/validation/browser_80000_rows.json
+!output/validation/frontend-build-2026-07-26.log
+!output/validation/frontend-tests-2026-07-26.tap
+!output/validation/live-api-route-check-2026-07-26.txt
+!output/validation/native-launcher-2026-07-26.log
+!output/validation/npm-audit-api-2026-07-26.json
+!output/validation/npm-audit-frontend-2026-07-26.json
+!output/validation/openshift-postgres-validation-2026-07-26.json
+!output/validation/render-production-evidence-2026-07-26.log
+!output/validation/sample-pack-validation-2026-07-26.json
+
+# The current customer deliverables replace the historical handover folders.
+final/*
+!final/README.md
+!final/SHA256SUMS.txt
+!final/Production Evidence/
+!final/Production Evidence/**
+
+# Retain only reproducible sample packs and current visual evidence.
+ss/*
+!ss/final-evidence/
+!ss/sample data/
+ss/final-evidence/*
+!ss/final-evidence/pdfs/
+!ss/final-evidence/pdfs/**
+!ss/final-evidence/ui/
+ss/final-evidence/ui/*
+!ss/final-evidence/ui/mva-dashboard-viewport-final.png
+!ss/final-evidence/workbooks/
+!ss/final-evidence/workbooks/**
+!ss/sample data/**

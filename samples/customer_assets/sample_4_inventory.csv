@@ -1,0 +1,9 @@
+IP Address,DNS Name,Host Name,Asset ID,Asset Type,Platform,Business Unit,Criticality,Responsible Team,Internet Exposed,In Scope
+10.44.10.11,scada-hmi-01.sample4.local,SCADA-HMI-01,S4-001,OT Device,Windows Embedded HMI,Manufacturing,Critical,OT Operations,No,Yes
+10.44.10.12,plc-line-01.sample4.local,PLC-LINE-01,S4-002,OT Device,Siemens S7 PLC,Manufacturing,Critical,OT Operations,No,Yes
+10.44.10.13,historian-01.sample4.local,HISTORIAN-01,S4-003,OT Device,Industrial Data Historian,Manufacturing,Critical,OT Operations,No,Yes
+10.44.20.11,vcenter-01.sample4.local,VCENTER-01,S4-004,Virtualization Host,VMware vCenter 8,Infrastructure,Critical,Virtualization Operations,No,Yes
+10.44.20.12,hyperv-01.sample4.local,HYPERV-01,S4-005,Virtualization Host,Windows Hyper-V 2022,Infrastructure,High,Virtualization Operations,No,Yes
+10.44.30.11,backup-01.sample4.local,BACKUP-01,S4-006,Windows Server,Windows Server 2022,Infrastructure,Critical,Infrastructure Services,No,Yes
+10.44.30.12,repo-01.sample4.local,REPO-01,S4-007,Linux Server,Ubuntu Server 24.04,Infrastructure,High,Infrastructure Services,No,Yes
+10.44.10.14,eng-ws-01.sample4.local,ENG-WS-01,S4-008,Endpoint,Windows 11 Engineering Workstation,Engineering,High,OT Operations,No,Yes

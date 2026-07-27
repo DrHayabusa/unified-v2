@@ -1,0 +1,170 @@
+{
+  "tools": [
+    {
+      "tool": "tenable-sc",
+      "label": "Tenable.sc",
+      "inventory": "asset_inventory/tenable-sc_asset_inventory.csv",
+      "hostDiscoveryFiles": [
+        "host_discovery/tenable-sc_host_discovery_2026-03.csv",
+        "host_discovery/tenable-sc_host_discovery_2026-04.csv",
+        "host_discovery/tenable-sc_host_discovery_2026-05.csv",
+        "host_discovery/tenable-sc_host_discovery_2026-06.csv",
+        "host_discovery/tenable-sc_host_discovery_2026-07.csv"
+      ],
+      "scanResultFiles": [
+        "scan_results/tenable_sc_april_2026_100plus.csv",
+        "scan_results/tenable_sc_july_2026_100plus.csv",
+        "scan_results/tenable_sc_june_2026_100plus.csv",
+        "scan_results/tenable_sc_may_2026_100plus.csv"
+      ],
+      "monthlyFiles": [
+        "scan_results/tenable_sc_april_2026_100plus.csv",
+        "scan_results/tenable_sc_july_2026_100plus.csv",
+        "scan_results/tenable_sc_june_2026_100plus.csv",
+        "scan_results/tenable_sc_may_2026_100plus.csv"
+      ],
+      "adhocFile": "scan_results/tenable_sc_july_2026_100plus.csv",
+      "expectedDiscovery": "expected_results/host_discovery_metrics.json",
+      "expectedScanner": "expected_results/scanner_metrics.json"
+    },
+    {
+      "tool": "tenable-io",
+      "label": "Tenable.io",
+      "inventory": "asset_inventory/tenable-io_asset_inventory.csv",
+      "hostDiscoveryFiles": [
+        "host_discovery/tenable-io_host_discovery_2026-03.csv",
+        "host_discovery/tenable-io_host_discovery_2026-04.csv",
+        "host_discovery/tenable-io_host_discovery_2026-05.csv",
+        "host_discovery/tenable-io_host_discovery_2026-06.csv",
+        "host_discovery/tenable-io_host_discovery_2026-07.csv"
+      ],
+      "scanResultFiles": [
+        "scan_results/tenable_io_april_2026_100plus.csv",
+        "scan_results/tenable_io_july_2026_100plus.csv",
+        "scan_results/tenable_io_june_2026_100plus.csv",
+        "scan_results/tenable_io_may_2026_100plus.csv"
+      ],
+      "monthlyFiles": [
+        "scan_results/tenable_io_april_2026_100plus.csv",
+        "scan_results/tenable_io_july_2026_100plus.csv",
+        "scan_results/tenable_io_june_2026_100plus.csv",
+        "scan_results/tenable_io_may_2026_100plus.csv"
+      ],
+      "adhocFile": "scan_results/tenable_io_july_2026_100plus.csv",
+      "expectedDiscovery": "expected_results/host_discovery_metrics.json",
+      "expectedScanner": "expected_results/scanner_metrics.json"
+    },
+    {
+      "tool": "qualys",
+      "label": "Qualys VMDR",
+      "inventory": "asset_inventory/qualys_asset_inventory.csv",
+      "hostDiscoveryFiles": [
+        "host_discovery/qualys_host_discovery_2026-03.csv",
+        "host_discovery/qualys_host_discovery_2026-04.csv",
+        "host_discovery/qualys_host_discovery_2026-05.csv",
+        "host_discovery/qualys_host_discovery_2026-06.csv",
+        "host_discovery/qualys_host_discovery_2026-07.csv"
+      ],
+      "scanResultFiles": [
+        "scan_results/qualys_adhoc_july_2026_100plus.csv",
+        "scan_results/qualys_monthly_april_2026_100plus.csv",
+        "scan_results/qualys_monthly_july_2026_100plus.csv",
+        "scan_results/qualys_monthly_june_2026_100plus.csv",
+        "scan_results/qualys_monthly_may_2026_100plus.csv"
+      ],
+      "monthlyFiles": [
+        "scan_results/qualys_monthly_april_2026_100plus.csv",
+        "scan_results/qualys_monthly_july_2026_100plus.csv",
+        "scan_results/qualys_monthly_june_2026_100plus.csv",
+        "scan_results/qualys_monthly_may_2026_100plus.csv"
+      ],
+      "adhocFile": "scan_results/qualys_adhoc_july_2026_100plus.csv",
+      "expectedDiscovery": "expected_results/host_discovery_metrics.json",
+      "expectedScanner": "expected_results/scanner_metrics.json"
+    },
+    {
+      "tool": "custom-qualys",
+      "label": "Custom Qualys",
+      "inventory": "asset_inventory/custom-qualys_asset_inventory.csv",
+      "hostDiscoveryFiles": [
+        "host_discovery/custom-qualys_host_discovery_2026-03.csv",
+        "host_discovery/custom-qualys_host_discovery_2026-04.csv",
+        "host_discovery/custom-qualys_host_discovery_2026-05.csv",
+        "host_discovery/custom-qualys_host_discovery_2026-06.csv",
+        "host_discovery/custom-qualys_host_discovery_2026-07.csv"
+      ],
+      "scanResultFiles": [
+        "scan_results/custom_qualys_adhoc_july_2026.csv",
+        "scan_results/custom_qualys_monthly_april_2026.csv",
+        "scan_results/custom_qualys_monthly_july_2026.csv",
+        "scan_results/custom_qualys_monthly_june_2026.csv",
+        "scan_results/custom_qualys_monthly_may_2026.csv"
+      ],
+      "monthlyFiles": [
+        "scan_results/custom_qualys_monthly_april_2026.csv",
+        "scan_results/custom_qualys_monthly_july_2026.csv",
+        "scan_results/custom_qualys_monthly_june_2026.csv",
+        "scan_results/custom_qualys_monthly_may_2026.csv"
+      ],
+      "adhocFile": "scan_results/custom_qualys_adhoc_july_2026.csv",
+      "expectedDiscovery": "expected_results/host_discovery_metrics.json",
+      "expectedScanner": "expected_results/scanner_metrics.json"
+    },
+    {
+      "tool": "crowdstrike",
+      "label": "CrowdStrike Exposure Management",
+      "inventory": "asset_inventory/crowdstrike_asset_inventory.csv",
+      "hostDiscoveryFiles": [
+        "host_discovery/crowdstrike_host_discovery_2026-03.csv",
+        "host_discovery/crowdstrike_host_discovery_2026-04.csv",
+        "host_discovery/crowdstrike_host_discovery_2026-05.csv",
+        "host_discovery/crowdstrike_host_discovery_2026-06.csv",
+        "host_discovery/crowdstrike_host_discovery_2026-07.csv"
+      ],
+      "scanResultFiles": [
+        "scan_results/crowdstrike_remediation_per_assets_july_2026_100plus.csv",
+        "scan_results/crowdstrike_vulnerabilities_april_2026_100plus.csv",
+        "scan_results/crowdstrike_vulnerabilities_july_2026_100plus.csv",
+        "scan_results/crowdstrike_vulnerabilities_june_2026_100plus.csv",
+        "scan_results/crowdstrike_vulnerabilities_may_2026_100plus.csv",
+        "scan_results/crowdstrike_vulnerability_per_asset_july_2026_100plus.csv"
+      ],
+      "monthlyFiles": [
+        "scan_results/crowdstrike_vulnerabilities_april_2026_100plus.csv",
+        "scan_results/crowdstrike_vulnerabilities_july_2026_100plus.csv",
+        "scan_results/crowdstrike_vulnerabilities_june_2026_100plus.csv",
+        "scan_results/crowdstrike_vulnerabilities_may_2026_100plus.csv"
+      ],
+      "adhocFile": "scan_results/crowdstrike_vulnerability_per_asset_july_2026_100plus.csv",
+      "expectedDiscovery": "expected_results/host_discovery_metrics.json",
+      "expectedScanner": "expected_results/scanner_metrics.json"
+    },
+    {
+      "tool": "openshift",
+      "label": "Red Hat OpenShift",
+      "inventory": "asset_inventory/openshift_asset_inventory.csv",
+      "hostDiscoveryFiles": [
+        "host_discovery/openshift_host_discovery_2026-03.csv",
+        "host_discovery/openshift_host_discovery_2026-04.csv",
+        "host_discovery/openshift_host_discovery_2026-05.csv",
+        "host_discovery/openshift_host_discovery_2026-06.csv",
+        "host_discovery/openshift_host_discovery_2026-07.csv"
+      ],
+      "scanResultFiles": [
+        "scan_results/openshift_april_2026_100plus.csv",
+        "scan_results/openshift_july_2026_100plus.csv",
+        "scan_results/openshift_june_2026_100plus.csv",
+        "scan_results/openshift_may_2026_100plus.csv"
+      ],
+      "monthlyFiles": [
+        "scan_results/openshift_april_2026_100plus.csv",
+        "scan_results/openshift_july_2026_100plus.csv",
+        "scan_results/openshift_june_2026_100plus.csv",
+        "scan_results/openshift_may_2026_100plus.csv"
+      ],
+      "adhocFile": "scan_results/openshift_july_2026_100plus.csv",
+      "expectedDiscovery": "expected_results/host_discovery_metrics.json",
+      "expectedScanner": "expected_results/scanner_metrics.json"
+    }
+  ]
+}

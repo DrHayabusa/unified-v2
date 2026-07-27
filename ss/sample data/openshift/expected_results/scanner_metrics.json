@@ -1,0 +1,139 @@
+{
+  "tool": "openshift",
+  "toolLabel": "Red Hat OpenShift",
+  "monthly": {
+    "files": [
+      "openshift_april_2026_100plus.csv",
+      "openshift_july_2026_100plus.csv",
+      "openshift_june_2026_100plus.csv",
+      "openshift_may_2026_100plus.csv"
+    ],
+    "uploadedPeriods": [
+      "April 2026",
+      "May 2026",
+      "June 2026",
+      "July 2026"
+    ],
+    "reportRange": "April 2026 - July 2026",
+    "totalOpenVulnerabilities": {
+      "totalOpen": 140,
+      "newVulnerabilities": 30,
+      "notClosedFromPreviousMonths": 110
+    },
+    "totalOpenByPatchPriority": {
+      "P1": 0,
+      "P2": 71,
+      "P3": 46,
+      "P4": 23
+    },
+    "totalOpenByAgeAndPatchPriority": {
+      "P1": {
+        ">7 days": 0,
+        ">30 days": 0,
+        ">60 days": 0,
+        ">180 days (6+ months)": 0
+      },
+      "P2": {
+        ">7 days": 71,
+        ">30 days": 56,
+        ">60 days": 43,
+        ">180 days (6+ months)": 11
+      },
+      "P3": {
+        ">7 days": 46,
+        ">30 days": 36,
+        ">60 days": 28,
+        ">180 days (6+ months)": 7
+      },
+      "P4": {
+        ">7 days": 23,
+        ">30 days": 18,
+        ">60 days": 14,
+        ">180 days (6+ months)": 4
+      }
+    },
+    "totalVulnerabilitiesPatchedLastMonth": {
+      "previousPeriod": "June 2026",
+      "currentPeriod": "July 2026",
+      "previousPeriodOpen": 130,
+      "newVulnerabilitiesIdentifiedThisPeriod": 30,
+      "currentPeriodOpen": 140,
+      "patchedCount": 20,
+      "patchedCountByKeyDiff": 20,
+      "previousMonth": "June 2026",
+      "currentMonth": "July 2026",
+      "previousMonthOpen": 130,
+      "newVulnerabilitiesIdentifiedThisMonth": 30,
+      "currentMonthOpen": 140
+    },
+    "trendDiscoveredLast3Months": [
+      {
+        "month": "May 2026",
+        "period": "May 2026",
+        "discoveredCount": 30
+      },
+      {
+        "month": "June 2026",
+        "period": "June 2026",
+        "discoveredCount": 25
+      },
+      {
+        "month": "July 2026",
+        "period": "July 2026",
+        "discoveredCount": 30
+      }
+    ],
+    "trendRemediatedLast3Months": [
+      {
+        "month": "May 2026",
+        "period": "May 2026",
+        "remediatedCount": 20
+      },
+      {
+        "month": "June 2026",
+        "period": "June 2026",
+        "remediatedCount": 15
+      },
+      {
+        "month": "July 2026",
+        "period": "July 2026",
+        "remediatedCount": 20
+      }
+    ],
+    "snapshotRows": [
+      {
+        "findings": 110
+      },
+      {
+        "findings": 120
+      },
+      {
+        "findings": 130
+      },
+      {
+        "findings": 140
+      }
+    ]
+  },
+  "adhoc": {
+    "file": "openshift_july_2026_100plus.csv",
+    "reportPeriod": "July 2026",
+    "totalVulnerabilities": 140,
+    "distinctAssets": 40,
+    "exploitAvailable": 0,
+    "severityCounts": {
+      "Critical": 23,
+      "High": 48,
+      "Medium": 46,
+      "Low": 23,
+      "Info": 0,
+      "Unknown": 0
+    },
+    "patchPriorityCounts": {
+      "P1": 0,
+      "P2": 71,
+      "P3": 46,
+      "P4": 23
+    }
+  }
+}

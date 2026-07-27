@@ -1,0 +1,139 @@
+{
+  "tool": "qualys",
+  "toolLabel": "Qualys VMDR",
+  "monthly": {
+    "files": [
+      "qualys_monthly_april_2026_100plus.csv",
+      "qualys_monthly_july_2026_100plus.csv",
+      "qualys_monthly_june_2026_100plus.csv",
+      "qualys_monthly_may_2026_100plus.csv"
+    ],
+    "uploadedPeriods": [
+      "April 2026",
+      "May 2026",
+      "June 2026",
+      "July 2026"
+    ],
+    "reportRange": "April 2026 - July 2026",
+    "totalOpenVulnerabilities": {
+      "totalOpen": 125,
+      "newVulnerabilities": 30,
+      "notClosedFromPreviousMonths": 95
+    },
+    "totalOpenByPatchPriority": {
+      "P1": 41,
+      "P2": 31,
+      "P3": 26,
+      "P4": 27
+    },
+    "totalOpenByAgeAndPatchPriority": {
+      "P1": {
+        ">7 days": 41,
+        ">30 days": 34,
+        ">60 days": 27,
+        ">180 days (6+ months)": 6
+      },
+      "P2": {
+        ">7 days": 29,
+        ">30 days": 26,
+        ">60 days": 21,
+        ">180 days (6+ months)": 5
+      },
+      "P3": {
+        ">7 days": 26,
+        ">30 days": 19,
+        ">60 days": 16,
+        ">180 days (6+ months)": 2
+      },
+      "P4": {
+        ">7 days": 27,
+        ">30 days": 21,
+        ">60 days": 19,
+        ">180 days (6+ months)": 5
+      }
+    },
+    "totalVulnerabilitiesPatchedLastMonth": {
+      "previousPeriod": "June 2026",
+      "currentPeriod": "July 2026",
+      "previousPeriodOpen": 120,
+      "newVulnerabilitiesIdentifiedThisPeriod": 30,
+      "currentPeriodOpen": 125,
+      "patchedCount": 25,
+      "patchedCountByKeyDiff": 25,
+      "previousMonth": "June 2026",
+      "currentMonth": "July 2026",
+      "previousMonthOpen": 120,
+      "newVulnerabilitiesIdentifiedThisMonth": 30,
+      "currentMonthOpen": 125
+    },
+    "trendDiscoveredLast3Months": [
+      {
+        "month": "May 2026",
+        "period": "May 2026",
+        "discoveredCount": 26
+      },
+      {
+        "month": "June 2026",
+        "period": "June 2026",
+        "discoveredCount": 17
+      },
+      {
+        "month": "July 2026",
+        "period": "July 2026",
+        "discoveredCount": 25
+      }
+    ],
+    "trendRemediatedLast3Months": [
+      {
+        "month": "May 2026",
+        "period": "May 2026",
+        "remediatedCount": 20
+      },
+      {
+        "month": "June 2026",
+        "period": "June 2026",
+        "remediatedCount": 30
+      },
+      {
+        "month": "July 2026",
+        "period": "July 2026",
+        "remediatedCount": 25
+      }
+    ],
+    "snapshotRows": [
+      {
+        "findings": 100
+      },
+      {
+        "findings": 110
+      },
+      {
+        "findings": 120
+      },
+      {
+        "findings": 125
+      }
+    ]
+  },
+  "adhoc": {
+    "file": "qualys_adhoc_july_2026_100plus.csv",
+    "reportPeriod": "Adhoc Report",
+    "totalVulnerabilities": 125,
+    "distinctAssets": 40,
+    "exploitAvailable": 51,
+    "severityCounts": {
+      "Critical": 31,
+      "High": 31,
+      "Medium": 31,
+      "Low": 32,
+      "Info": 0,
+      "Unknown": 0
+    },
+    "patchPriorityCounts": {
+      "P1": 41,
+      "P2": 31,
+      "P3": 26,
+      "P4": 27
+    }
+  }
+}

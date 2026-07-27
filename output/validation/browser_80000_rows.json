@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "rows": 80000,
+  "csvSizeMb": 28.851,
+  "parseSeconds": 1.275,
+  "normalizeSeconds": 0.448,
+  "dashboardSeconds": 0.641,
+  "totalSeconds": 2.364,
+  "normalizedRows": 80000,
+  "dashboardTotal": 80000,
+  "distinctAssets": 2000
+}

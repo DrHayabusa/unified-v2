@@ -1,0 +1,10 @@
+{
+  "ok": true,
+  "toolsValidated": 6,
+  "inventoryRowsValidated": 600,
+  "discoveryFilesValidated": 30,
+  "monthlyScannerFilesValidated": 24,
+  "adhocScenariosValidated": 6,
+  "universalCustomParserValidated": true,
+  "allScannerAssetsMatchedToInventory": true
+}

@@ -1,0 +1,9 @@
+IP Address,DNS Name,Host Name,Asset ID,Asset Type,Platform,Business Unit,Criticality,Responsible Team,Internet Exposed,In Scope
+10.42.10.1,edge-rtr-01.sample2.local,EDGE-RTR-01,S2-001,Network Device,Cisco IOS XE,Infrastructure,Critical,Network Operations,Yes,Yes
+10.42.10.2,core-sw-01.sample2.local,CORE-SW-01,S2-002,Network Device,Cisco NX-OS,Infrastructure,Critical,Network Operations,No,Yes
+10.42.10.3,wlc-01.sample2.local,WLC-01,S2-003,Network Device,Cisco Wireless Controller,Infrastructure,High,Network Operations,No,Yes
+10.42.20.1,fw-edge-01.sample2.local,FW-EDGE-01,S2-004,Security Appliance,Palo Alto PAN-OS,Security,Critical,Security Engineering,Yes,Yes
+10.42.20.2,waf-01.sample2.local,WAF-01,S2-005,Security Appliance,F5 Advanced WAF,Security,Critical,Security Engineering,Yes,Yes
+10.42.30.1,esx-prod-01.sample2.local,ESX-PROD-01,S2-006,Virtualization Host,VMware ESXi 8,Infrastructure,Critical,Virtualization Team,No,Yes
+10.42.30.2,esx-prod-02.sample2.local,ESX-PROD-02,S2-007,Virtualization Host,VMware ESXi 8,Infrastructure,Critical,Virtualization Team,No,Yes
+10.42.10.4,lb-api-01.sample2.local,LB-API-01,S2-008,Network Device,F5 BIG-IP,Digital Services,High,Network Operations,Yes,Yes

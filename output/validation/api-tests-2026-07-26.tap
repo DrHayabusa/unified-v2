@@ -1,0 +1,138 @@
+
+> mva-postgres-api@0.1.0 test
+> node --test test/*.test.js
+
+{"level":30,"time":1785101531616,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-1","req":{"method":"POST","url":"/api/v1/auth/bootstrap","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1785101532069,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-1","res":{"statusCode":201},"responseTime":453.2565420000001,"msg":"request completed"}
+{"level":30,"time":1785101532070,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-2","req":{"method":"DELETE","url":"/api/v1/customers/11111111-1111-4111-8111-111111111111","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":40,"time":1785101532073,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-2","statusCode":403,"message":"The request security token is invalid. Refresh and try again.","msg":"Request rejected"}
+{"level":30,"time":1785101532074,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-2","res":{"statusCode":403},"responseTime":3.8604159999999865,"msg":"request completed"}
+{"level":30,"time":1785101532074,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-3","req":{"method":"DELETE","url":"/api/v1/customers/11111111-1111-4111-8111-111111111111","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1785101532076,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-3","res":{"statusCode":200},"responseTime":1.593499999999949,"msg":"request completed"}
+{"level":30,"time":1785101532578,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-1","req":{"method":"POST","url":"/api/v1/auth/bootstrap","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1785101533037,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-1","res":{"statusCode":201},"responseTime":458.0562920000002,"msg":"request completed"}
+✔ tenant deletion requires administrator role, CSRF, and explicit confirmation payload (2698.199584ms)
+{"level":30,"time":1785101533038,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-2","req":{"method":"DELETE","url":"/api/v1/customers/11111111-1111-4111-8111-111111111111","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":40,"time":1785101533038,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-2","statusCode":403,"message":"System administrator access is required.","msg":"Request rejected"}
+{"level":30,"time":1785101533039,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-2","res":{"statusCode":403},"responseTime":0.7145000000000437,"msg":"request completed"}
+{"level":30,"time":1785101533380,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-1","req":{"method":"GET","url":"/health","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1785101533381,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-1","res":{"statusCode":200},"responseTime":0.6679170000002159,"msg":"request completed"}
+{"level":30,"time":1785101533381,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-2","req":{"method":"GET","url":"/api/v1/auth/setup-status","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1785101533381,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-2","res":{"statusCode":200},"responseTime":0.16150000000016007,"msg":"request completed"}
+{"level":30,"time":1785101533381,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-3","req":{"method":"POST","url":"/api/v1/auth/bootstrap","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1785101533690,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-3","res":{"statusCode":201},"responseTime":308.70445800000016,"msg":"request completed"}
+✔ health, setup, and first administrator contracts are exposed (650.938667ms)
+{"level":30,"time":1785101534009,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-1","req":{"method":"POST","url":"/api/v1/customers/11111111-1111-4111-8111-111111111111/scan-runs","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":40,"time":1785101534010,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-1","statusCode":401,"message":"Authentication is required.","msg":"Request rejected"}
+{"level":30,"time":1785101534011,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-1","res":{"statusCode":401},"responseTime":1.4097499999998035,"msg":"request completed"}
+{"level":30,"time":1785101534011,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-2","req":{"method":"POST","url":"/api/v1/auth/bootstrap","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1785101534391,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-2","res":{"statusCode":201},"responseTime":379.8445420000003,"msg":"request completed"}
+{"level":30,"time":1785101534392,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-3","req":{"method":"POST","url":"/api/v1/customers/11111111-1111-4111-8111-111111111111/scan-runs","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":40,"time":1785101534394,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-3","statusCode":403,"message":"The request security token is invalid. Refresh and try again.","msg":"Request rejected"}
+{"level":30,"time":1785101534394,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-3","res":{"statusCode":403},"responseTime":2.6272079999998823,"msg":"request completed"}
+{"level":30,"time":1785101534395,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-4","req":{"method":"POST","url":"/api/v1/customers/11111111-1111-4111-8111-111111111111/scan-runs","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+✔ customer scan routes require a session and CSRF token (704.304834ms)
+{"level":30,"time":1785101534396,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-4","res":{"statusCode":201},"responseTime":1.6686249999993379,"msg":"request completed"}
+{"level":30,"time":1785101534722,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-1","req":{"method":"POST","url":"/api/v1/auth/bootstrap","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1785101534986,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-1","res":{"statusCode":201},"responseTime":264.1018750000003,"msg":"request completed"}
+✔ customer dashboard and CSV export accept the same validated scope filters (594.508917ms)
+✔ finding CSV exports exact reporting columns and neutralizes spreadsheet formulas (0.431375ms)
+{"level":30,"time":1785101534986,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-2","req":{"method":"GET","url":"/api/v1/customers/11111111-1111-4111-8111-111111111111/dashboard?teamId=33333333-3333-4333-8333-333333333333&assetId=44444444-4444-4444-8444-444444444444","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1785101534988,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-2","res":{"statusCode":200},"responseTime":1.4477090000000317,"msg":"request completed"}
+{"level":30,"time":1785101534988,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-3","req":{"method":"GET","url":"/api/v1/customers/11111111-1111-4111-8111-111111111111/findings.csv?teamId=33333333-3333-4333-8333-333333333333&assetId=44444444-4444-4444-8444-444444444444","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1785101534989,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-3","res":{"statusCode":200},"responseTime":1.313375000000633,"msg":"request completed"}
+{"level":30,"time":1785101534990,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-4","req":{"method":"GET","url":"/api/v1/customers/11111111-1111-4111-8111-111111111111/dashboard?assetId=not-a-uuid","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":40,"time":1785101534990,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-4","statusCode":400,"message":"Select a valid asset.","msg":"Request rejected"}
+{"level":30,"time":1785101534990,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-4","res":{"statusCode":400},"responseTime":0.2501670000001468,"msg":"request completed"}
+{"level":30,"time":1785101534990,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-5","req":{"method":"GET","url":"/api/v1/customers/11111111-1111-4111-8111-111111111111/scan-asset-coverage","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1785101534991,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-5","res":{"statusCode":200},"responseTime":0.14158300000053714,"msg":"request completed"}
+✔ scrypt passwords verify without storing plaintext (915.662542ms)
+✔ finding normalization constrains priority, exposure, dates, and text (1.564ms)
+✔ asset inventory accepts repeated aliases for one asset and rejects cross-asset collisions (2.225208ms)
+{"level":30,"time":1785101536205,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-1","req":{"method":"POST","url":"/api/v1/auth/bootstrap","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1785101536457,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-1","res":{"statusCode":201},"responseTime":251.70700000000033,"msg":"request completed"}
+{"level":30,"time":1785101536457,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-2","req":{"method":"DELETE","url":"/api/v1/customers/11111111-1111-4111-8111-111111111111/assets","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":40,"time":1785101536458,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-2","statusCode":403,"message":"The request security token is invalid. Refresh and try again.","msg":"Request rejected"}
+{"level":30,"time":1785101536458,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-2","res":{"statusCode":403},"responseTime":0.6062919999994847,"msg":"request completed"}
+{"level":30,"time":1785101536458,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-3","req":{"method":"DELETE","url":"/api/v1/customers/11111111-1111-4111-8111-111111111111/assets","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":40,"time":1785101536459,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-3","statusCode":400,"message":"One or more selected assets are invalid.","msg":"Request rejected"}
+{"level":30,"time":1785101536459,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-3","res":{"statusCode":400},"responseTime":0.97716599999967,"msg":"request completed"}
+{"level":30,"time":1785101536459,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-4","req":{"method":"DELETE","url":"/api/v1/customers/11111111-1111-4111-8111-111111111111/assets","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1785101536460,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-4","res":{"statusCode":200},"responseTime":0.23812499999985448,"msg":"request completed"}
+{"level":30,"time":1785101536460,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-5","req":{"method":"PATCH","url":"/api/v1/customers/11111111-1111-4111-8111-111111111111/assets/44444444-4444-4444-8444-444444444444","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+✔ asset edit and bulk delete routes validate identity, CSRF, and selected IDs (548.896959ms)
+{"level":30,"time":1785101536460,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-5","res":{"statusCode":200},"responseTime":0.2783339999996315,"msg":"request completed"}
+{"level":30,"time":1785101536739,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-1","req":{"method":"POST","url":"/api/v1/auth/bootstrap","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1785101537016,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-1","res":{"statusCode":201},"responseTime":276.8776660000003,"msg":"request completed"}
+{"level":30,"time":1785101537017,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-2","req":{"method":"GET","url":"/api/v1/llm/status","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1785101537018,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-2","res":{"statusCode":200},"responseTime":1.1178749999999127,"msg":"request completed"}
+{"level":30,"time":1785101537018,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-3","req":{"method":"POST","url":"/api/v1/customers/11111111-1111-4111-8111-111111111111/llm/test","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1785101537019,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-3","res":{"statusCode":200},"responseTime":0.5633749999997235,"msg":"request completed"}
+{"level":30,"time":1785101537019,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-4","req":{"method":"POST","url":"/api/v1/customers/11111111-1111-4111-8111-111111111111/threat-intel/imports","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1785101537021,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-4","res":{"statusCode":201},"responseTime":1.6978340000005119,"msg":"request completed"}
+{"level":30,"time":1785101537021,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-5","req":{"method":"POST","url":"/api/v1/customers/11111111-1111-4111-8111-111111111111/threat-intel/imports/55555555-5555-4555-8555-555555555555/chunks","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1785101537022,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-5","res":{"statusCode":200},"responseTime":0.6525830000000497,"msg":"request completed"}
+{"level":30,"time":1785101537022,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-6","req":{"method":"POST","url":"/api/v1/customers/11111111-1111-4111-8111-111111111111/threat-intel/imports/55555555-5555-4555-8555-555555555555/finalize","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1785101537023,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-6","res":{"statusCode":200},"responseTime":0.9151670000001104,"msg":"request completed"}
+{"level":30,"time":1785101537024,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-7","req":{"method":"GET","url":"/api/v1/customers/11111111-1111-4111-8111-111111111111/threat-intel?q=CVE-2021-44228","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1785101537025,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-7","res":{"statusCode":200},"responseTime":0.6065829999997732,"msg":"request completed"}
+{"level":30,"time":1785101537025,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-8","req":{"method":"POST","url":"/api/v1/customers/11111111-1111-4111-8111-111111111111/threat-intel/enrich","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1785101537026,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-8","res":{"statusCode":200},"responseTime":0.7107909999995172,"msg":"request completed"}
+{"level":30,"time":1785101537026,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-9","req":{"method":"POST","url":"/api/v1/customers/11111111-1111-4111-8111-111111111111/ai/remediation","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1785101537026,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-9","res":{"statusCode":200},"responseTime":0.7119169999996302,"msg":"request completed"}
+{"level":30,"time":1785101537027,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-a","req":{"method":"POST","url":"/api/v1/customers/11111111-1111-4111-8111-111111111111/threat-intel/enrich","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+✔ tenant threat-intelligence import, search, local enrichment, and remediation routes are protected and complete (569.232166ms)
+{"level":40,"time":1785101537028,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-a","statusCode":403,"message":"The request security token is invalid. Refresh and try again.","msg":"Request rejected"}
+{"level":30,"time":1785101537029,"pid":44695,"hostname":"Mohammeds-MBP","reqId":"req-a","res":{"statusCode":403},"responseTime":2.0244579999998678,"msg":"request completed"}
+✔ Ollama client verifies the configured Gemma model without exposing browser configuration (1.74375ms)
+✔ Ollama client sends bounded non-streaming chat requests and returns model content (1.033875ms)
+✔ Ollama client reports missing models and unreachable local services clearly (1.563458ms)
+{"level":30,"time":1785101531729,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-1","req":{"method":"GET","url":"/api/v1/auth/setup-status","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+✔ API responses set anti-caching and browser hardening headers (1370.798958ms)
+{"level":30,"time":1785101531737,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-1","res":{"statusCode":200},"responseTime":5.9347080000000005,"msg":"request completed"}
+{"level":30,"time":1785101532246,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-1","req":{"method":"GET","url":"/health","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+✔ CORS allows the configured origin and rejects an untrusted origin (508.499292ms)
+{"level":30,"time":1785101532247,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-1","res":{"statusCode":200},"responseTime":0.7660410000003139,"msg":"request completed"}
+{"level":30,"time":1785101532248,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-2","req":{"method":"GET","url":"/health","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":40,"time":1785101532248,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-2","statusCode":403,"message":"Origin is not allowed.","msg":"Request rejected"}
+{"level":30,"time":1785101532248,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-2","res":{"statusCode":403},"responseTime":0.478874999999789,"msg":"request completed"}
+{"level":30,"time":1785101532769,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-1","req":{"method":"POST","url":"/api/v1/auth/bootstrap","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1785101533153,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-1","res":{"statusCode":201},"responseTime":383.4007919999999,"msg":"request completed"}
+✔ production sessions use Secure, HttpOnly, and SameSite Strict cookies (905.334125ms)
+{"level":30,"time":1785101533488,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-1","req":{"method":"POST","url":"/api/v1/auth/login","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":40,"time":1785101533796,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-1","statusCode":401,"message":"Email or password is incorrect.","msg":"Request rejected"}
+{"level":30,"time":1785101533797,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-1","res":{"statusCode":401},"responseTime":309.2548750000001,"msg":"request completed"}
+{"level":30,"time":1785101533797,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-2","req":{"method":"POST","url":"/api/v1/auth/login","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":40,"time":1785101534134,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-2","statusCode":401,"message":"Email or password is incorrect.","msg":"Request rejected"}
+{"level":30,"time":1785101534135,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-2","res":{"statusCode":401},"responseTime":337.59737499999983,"msg":"request completed"}
+{"level":30,"time":1785101534135,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-3","req":{"method":"POST","url":"/api/v1/auth/login","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":40,"time":1785101534478,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-3","statusCode":401,"message":"Email or password is incorrect.","msg":"Request rejected"}
+{"level":30,"time":1785101534478,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-3","res":{"statusCode":401},"responseTime":342.9454999999998,"msg":"request completed"}
+{"level":30,"time":1785101534479,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-4","req":{"method":"POST","url":"/api/v1/auth/login","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":40,"time":1785101534781,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-4","statusCode":401,"message":"Email or password is incorrect.","msg":"Request rejected"}
+{"level":30,"time":1785101534782,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-4","res":{"statusCode":401},"responseTime":302.783375,"msg":"request completed"}
+{"level":30,"time":1785101534783,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-5","req":{"method":"POST","url":"/api/v1/auth/login","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":40,"time":1785101535044,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-5","statusCode":401,"message":"Email or password is incorrect.","msg":"Request rejected"}
+{"level":30,"time":1785101535044,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-5","res":{"statusCode":401},"responseTime":261.1065829999998,"msg":"request completed"}
+{"level":30,"time":1785101535045,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-6","req":{"method":"POST","url":"/api/v1/auth/login","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":40,"time":1785101535314,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-6","statusCode":401,"message":"Email or password is incorrect.","msg":"Request rejected"}
+{"level":30,"time":1785101535315,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-6","res":{"statusCode":401},"responseTime":270.04699999999957,"msg":"request completed"}
+{"level":30,"time":1785101535315,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-7","req":{"method":"POST","url":"/api/v1/auth/login","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":40,"time":1785101535650,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-7","statusCode":401,"message":"Email or password is incorrect.","msg":"Request rejected"}
+{"level":30,"time":1785101535650,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-7","res":{"statusCode":401},"responseTime":335.27637500000037,"msg":"request completed"}
+{"level":30,"time":1785101535651,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-8","req":{"method":"POST","url":"/api/v1/auth/login","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":40,"time":1785101535979,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-8","statusCode":401,"message":"Email or password is incorrect.","msg":"Request rejected"}
+✔ repeated invalid sign-ins are throttled without disclosing account existence (2826.565708ms)
+✔ password policy rejects short, oversized, and email-derived passwords (1.2195ms)
+{"level":30,"time":1785101535980,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-8","res":{"statusCode":401},"responseTime":328.712125,"msg":"request completed"}
+{"level":30,"time":1785101535980,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-9","req":{"method":"POST","url":"/api/v1/auth/login","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":40,"time":1785101535980,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-9","statusCode":429,"message":"Too many sign-in attempts. Try again later.","msg":"Request rejected"}
+{"level":30,"time":1785101535980,"pid":44697,"hostname":"Mohammeds-MBP","reqId":"req-9","res":{"statusCode":429},"responseTime":0.4396660000002157,"msg":"request completed"}
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7070.994625

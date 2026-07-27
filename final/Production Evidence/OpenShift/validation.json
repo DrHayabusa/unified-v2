@@ -1,0 +1,393 @@
+{
+  "source": "Red Hat OpenShift",
+  "inputs": {
+    "monthly": [
+      "samples/openshift_100_row/openshift_april_2026_100plus.csv",
+      "samples/openshift_100_row/openshift_may_2026_100plus.csv",
+      "samples/openshift_100_row/openshift_june_2026_100plus.csv",
+      "samples/openshift_100_row/openshift_july_2026_100plus.csv"
+    ],
+    "adhoc": "samples/openshift_100_row/openshift_july_2026_100plus.csv"
+  },
+  "monthly": {
+    "reportRange": "April 2026 - July 2026",
+    "periods": [
+      "April 2026",
+      "May 2026",
+      "June 2026",
+      "July 2026"
+    ],
+    "totalOpen": 140,
+    "newFindings": 30,
+    "notClosed": 110,
+    "patchedFindings": 20,
+    "patchedFormula": {
+      "previousOpen": 130,
+      "plusNew": 30,
+      "minusCurrentOpen": 140,
+      "result": 20
+    },
+    "patchPriority": {
+      "P1": 0,
+      "P2": 71,
+      "P3": 46,
+      "P4": 23
+    },
+    "ageByPatchPriority": {
+      "P1": {
+        ">7 days": 0,
+        ">30 days": 0,
+        ">60 days": 0,
+        ">180 days (6+ months)": 0
+      },
+      "P2": {
+        ">7 days": 71,
+        ">30 days": 56,
+        ">60 days": 43,
+        ">180 days (6+ months)": 11
+      },
+      "P3": {
+        ">7 days": 46,
+        ">30 days": 36,
+        ">60 days": 28,
+        ">180 days (6+ months)": 7
+      },
+      "P4": {
+        ">7 days": 23,
+        ">30 days": 18,
+        ">60 days": 14,
+        ">180 days (6+ months)": 4
+      }
+    },
+    "discoveredLast3Periods": [
+      {
+        "month": "May 2026",
+        "period": "May 2026",
+        "discoveredCount": 30
+      },
+      {
+        "month": "June 2026",
+        "period": "June 2026",
+        "discoveredCount": 25
+      },
+      {
+        "month": "July 2026",
+        "period": "July 2026",
+        "discoveredCount": 30
+      }
+    ],
+    "patchedLast3Periods": [
+      {
+        "month": "May 2026",
+        "period": "May 2026",
+        "remediatedCount": 20
+      },
+      {
+        "month": "June 2026",
+        "period": "June 2026",
+        "remediatedCount": 15
+      },
+      {
+        "month": "July 2026",
+        "period": "July 2026",
+        "remediatedCount": 20
+      }
+    ],
+    "validation": {
+      "valid": true,
+      "checks": {
+        "discoveredTrendLast3Periods": true,
+        "totalOpenIdentity": true,
+        "totalOpenByPatchPriority": true,
+        "ageByPatchPriority": true,
+        "patchedTrendAndFormula": true
+      },
+      "failures": []
+    },
+    "qualys": null,
+    "crowdstrike": null,
+    "openshift": {
+      "totalOpen": 140,
+      "fixable": 112,
+      "fixedVersionSupplied": 112,
+      "noFixedVersion": 28,
+      "namespaceCount": 8,
+      "deploymentCount": 40,
+      "imageCount": 140,
+      "componentCount": 10,
+      "namespaces": [
+        {
+          "namespace": "customer-portal",
+          "vulnerabilityCount": 18
+        },
+        {
+          "namespace": "edge",
+          "vulnerabilityCount": 18
+        },
+        {
+          "namespace": "identity",
+          "vulnerabilityCount": 18
+        },
+        {
+          "namespace": "payments",
+          "vulnerabilityCount": 18
+        },
+        {
+          "namespace": "analytics",
+          "vulnerabilityCount": 17
+        },
+        {
+          "namespace": "integration",
+          "vulnerabilityCount": 17
+        },
+        {
+          "namespace": "monitoring",
+          "vulnerabilityCount": 17
+        },
+        {
+          "namespace": "shared-services",
+          "vulnerabilityCount": 17
+        }
+      ],
+      "components": [
+        {
+          "component": "curl",
+          "vulnerabilityCount": 14
+        },
+        {
+          "component": "expat",
+          "vulnerabilityCount": 14
+        },
+        {
+          "component": "glibc",
+          "vulnerabilityCount": 14
+        },
+        {
+          "component": "go-toolset",
+          "vulnerabilityCount": 14
+        },
+        {
+          "component": "krb5-libs",
+          "vulnerabilityCount": 14
+        },
+        {
+          "component": "libxml2",
+          "vulnerabilityCount": 14
+        },
+        {
+          "component": "nginx",
+          "vulnerabilityCount": 14
+        },
+        {
+          "component": "openssl",
+          "vulnerabilityCount": 14
+        },
+        {
+          "component": "python3-libs",
+          "vulnerabilityCount": 14
+        },
+        {
+          "component": "zlib",
+          "vulnerabilityCount": 14
+        }
+      ],
+      "images": [
+        {
+          "image": "registry.example.internal/core/analytics-api-4:2026.31",
+          "vulnerabilityCount": 1
+        },
+        {
+          "image": "registry.example.internal/core/analytics-gateway-1:2026.25",
+          "vulnerabilityCount": 1
+        },
+        {
+          "image": "registry.example.internal/core/analytics-scheduler-3:2026.27",
+          "vulnerabilityCount": 1
+        },
+        {
+          "image": "registry.example.internal/core/analytics-web-5:2026.21",
+          "vulnerabilityCount": 1
+        },
+        {
+          "image": "registry.example.internal/core/analytics-worker-2:2026.23",
+          "vulnerabilityCount": 1
+        },
+        {
+          "image": "registry.example.internal/core/customer-portal-api-3:2026.28",
+          "vulnerabilityCount": 1
+        },
+        {
+          "image": "registry.example.internal/core/customer-portal-gateway-5:2026.22",
+          "vulnerabilityCount": 1
+        },
+        {
+          "image": "registry.example.internal/core/customer-portal-scheduler-2:2026.24",
+          "vulnerabilityCount": 1
+        },
+        {
+          "image": "registry.example.internal/core/customer-portal-scheduler-2:2026.30",
+          "vulnerabilityCount": 1
+        },
+        {
+          "image": "registry.example.internal/core/customer-portal-web-4:2026.32",
+          "vulnerabilityCount": 1
+        }
+      ]
+    }
+  },
+  "adhoc": {
+    "totalOpen": 140,
+    "distinctAssets": 40,
+    "exploitAvailable": 0,
+    "severity": {
+      "Critical": 23,
+      "High": 48,
+      "Medium": 46,
+      "Low": 23,
+      "Info": 0,
+      "Unknown": 0
+    },
+    "patchPriority": {
+      "P1": 0,
+      "P2": 71,
+      "P3": 46,
+      "P4": 23
+    },
+    "qualys": null,
+    "crowdstrike": null,
+    "openshift": {
+      "totalOpen": 140,
+      "fixable": 112,
+      "fixedVersionSupplied": 112,
+      "noFixedVersion": 28,
+      "namespaceCount": 8,
+      "deploymentCount": 40,
+      "imageCount": 140,
+      "componentCount": 10,
+      "namespaces": [
+        {
+          "namespace": "customer-portal",
+          "vulnerabilityCount": 18
+        },
+        {
+          "namespace": "edge",
+          "vulnerabilityCount": 18
+        },
+        {
+          "namespace": "identity",
+          "vulnerabilityCount": 18
+        },
+        {
+          "namespace": "payments",
+          "vulnerabilityCount": 18
+        },
+        {
+          "namespace": "analytics",
+          "vulnerabilityCount": 17
+        },
+        {
+          "namespace": "integration",
+          "vulnerabilityCount": 17
+        },
+        {
+          "namespace": "monitoring",
+          "vulnerabilityCount": 17
+        },
+        {
+          "namespace": "shared-services",
+          "vulnerabilityCount": 17
+        }
+      ],
+      "components": [
+        {
+          "component": "curl",
+          "vulnerabilityCount": 14
+        },
+        {
+          "component": "expat",
+          "vulnerabilityCount": 14
+        },
+        {
+          "component": "glibc",
+          "vulnerabilityCount": 14
+        },
+        {
+          "component": "go-toolset",
+          "vulnerabilityCount": 14
+        },
+        {
+          "component": "krb5-libs",
+          "vulnerabilityCount": 14
+        },
+        {
+          "component": "libxml2",
+          "vulnerabilityCount": 14
+        },
+        {
+          "component": "nginx",
+          "vulnerabilityCount": 14
+        },
+        {
+          "component": "openssl",
+          "vulnerabilityCount": 14
+        },
+        {
+          "component": "python3-libs",
+          "vulnerabilityCount": 14
+        },
+        {
+          "component": "zlib",
+          "vulnerabilityCount": 14
+        }
+      ],
+      "images": [
+        {
+          "image": "registry.example.internal/core/analytics-api-4:2026.31",
+          "vulnerabilityCount": 1
+        },
+        {
+          "image": "registry.example.internal/core/analytics-gateway-1:2026.25",
+          "vulnerabilityCount": 1
+        },
+        {
+          "image": "registry.example.internal/core/analytics-scheduler-3:2026.27",
+          "vulnerabilityCount": 1
+        },
+        {
+          "image": "registry.example.internal/core/analytics-web-5:2026.21",
+          "vulnerabilityCount": 1
+        },
+        {
+          "image": "registry.example.internal/core/analytics-worker-2:2026.23",
+          "vulnerabilityCount": 1
+        },
+        {
+          "image": "registry.example.internal/core/customer-portal-api-3:2026.28",
+          "vulnerabilityCount": 1
+        },
+        {
+          "image": "registry.example.internal/core/customer-portal-gateway-5:2026.22",
+          "vulnerabilityCount": 1
+        },
+        {
+          "image": "registry.example.internal/core/customer-portal-scheduler-2:2026.24",
+          "vulnerabilityCount": 1
+        },
+        {
+          "image": "registry.example.internal/core/customer-portal-scheduler-2:2026.30",
+          "vulnerabilityCount": 1
+        },
+        {
+          "image": "registry.example.internal/core/customer-portal-web-4:2026.32",
+          "vulnerabilityCount": 1
+        }
+      ]
+    }
+  },
+  "outputs": {
+    "monthlyWorkbook": "final/Production Evidence/OpenShift/MVA_OpenShift_Monthly_Report.xlsx",
+    "adhocWorkbook": "final/Production Evidence/OpenShift/MVA_OpenShift_Adhoc_Report.xlsx",
+    "remediationGuide": "final/Production Evidence/OpenShift/MVA_OpenShift_July_2026_Remediation_Guide.pdf",
+    "executiveDashboard": "final/Production Evidence/OpenShift/MVA_OpenShift_July_2026_Executive_Dashboard.pdf"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "ok": true,
+  "findingsStored": 140,
+  "fixable": 112,
+  "fixedVersionSupplied": 112,
+  "namespaces": 8,
+  "components": 10,
+  "exportedRows": 140,
+  "cvssRange": [
+    3.7,
+    9.8
+  ]
+}

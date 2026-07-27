@@ -1,0 +1,1513 @@
+{
+  "generatedAt": "2026-07-26T21:28:02.631Z",
+  "priorityMatrix": {
+    "exploitAvailable": {
+      "Critical": "P1",
+      "High": "P1",
+      "Medium": "P2",
+      "Low": "P2"
+    },
+    "exploitUnavailable": {
+      "Critical": "P2",
+      "High": "P2",
+      "Medium": "P3",
+      "Low": "P4"
+    }
+  },
+  "sources": [
+    {
+      "source": "Tenable.sc",
+      "inputs": {
+        "monthly": [
+          "samples/tenable_100_row/tenable_sc_april_2026_100plus.csv",
+          "samples/tenable_100_row/tenable_sc_may_2026_100plus.csv",
+          "samples/tenable_100_row/tenable_sc_june_2026_100plus.csv",
+          "samples/tenable_100_row/tenable_sc_july_2026_100plus.csv"
+        ],
+        "adhoc": "samples/tenable_100_row/tenable_sc_july_2026_100plus.csv"
+      },
+      "monthly": {
+        "reportRange": "April 2026 - July 2026",
+        "periods": [
+          "April 2026",
+          "May 2026",
+          "June 2026",
+          "July 2026"
+        ],
+        "totalOpen": 125,
+        "newFindings": 30,
+        "notClosed": 95,
+        "patchedFindings": 25,
+        "patchedFormula": {
+          "previousOpen": 120,
+          "plusNew": 30,
+          "minusCurrentOpen": 125,
+          "result": 25
+        },
+        "patchPriority": {
+          "P1": 41,
+          "P2": 31,
+          "P3": 26,
+          "P4": 27
+        },
+        "ageByPatchPriority": {
+          "P1": {
+            ">7 days": 41,
+            ">30 days": 34,
+            ">60 days": 27,
+            ">180 days (6+ months)": 6
+          },
+          "P2": {
+            ">7 days": 29,
+            ">30 days": 26,
+            ">60 days": 21,
+            ">180 days (6+ months)": 5
+          },
+          "P3": {
+            ">7 days": 26,
+            ">30 days": 19,
+            ">60 days": 16,
+            ">180 days (6+ months)": 2
+          },
+          "P4": {
+            ">7 days": 27,
+            ">30 days": 21,
+            ">60 days": 19,
+            ">180 days (6+ months)": 5
+          }
+        },
+        "discoveredLast3Periods": [
+          {
+            "month": "May 2026",
+            "period": "May 2026",
+            "discoveredCount": 26
+          },
+          {
+            "month": "June 2026",
+            "period": "June 2026",
+            "discoveredCount": 17
+          },
+          {
+            "month": "July 2026",
+            "period": "July 2026",
+            "discoveredCount": 25
+          }
+        ],
+        "patchedLast3Periods": [
+          {
+            "month": "May 2026",
+            "period": "May 2026",
+            "remediatedCount": 20
+          },
+          {
+            "month": "June 2026",
+            "period": "June 2026",
+            "remediatedCount": 30
+          },
+          {
+            "month": "July 2026",
+            "period": "July 2026",
+            "remediatedCount": 25
+          }
+        ],
+        "validation": {
+          "valid": true,
+          "checks": {
+            "discoveredTrendLast3Periods": true,
+            "totalOpenIdentity": true,
+            "totalOpenByPatchPriority": true,
+            "ageByPatchPriority": true,
+            "patchedTrendAndFormula": true
+          },
+          "failures": []
+        },
+        "qualys": null,
+        "crowdstrike": null,
+        "openshift": null
+      },
+      "adhoc": {
+        "totalOpen": 125,
+        "distinctAssets": 40,
+        "exploitAvailable": 51,
+        "severity": {
+          "Critical": 31,
+          "High": 31,
+          "Medium": 31,
+          "Low": 32,
+          "Info": 0,
+          "Unknown": 0
+        },
+        "patchPriority": {
+          "P1": 41,
+          "P2": 31,
+          "P3": 26,
+          "P4": 27
+        },
+        "qualys": null,
+        "crowdstrike": null,
+        "openshift": null
+      },
+      "outputs": {
+        "monthlyWorkbook": "final/Production Evidence/Tenable_SC/MVA_Tenable_SC_Monthly_Report.xlsx",
+        "adhocWorkbook": "final/Production Evidence/Tenable_SC/MVA_Tenable_SC_Adhoc_Report.xlsx",
+        "remediationGuide": "final/Production Evidence/Tenable_SC/MVA_Tenable_SC_July_2026_Remediation_Guide.pdf",
+        "executiveDashboard": "final/Production Evidence/Tenable_SC/MVA_Tenable_SC_July_2026_Executive_Dashboard.pdf"
+      }
+    },
+    {
+      "source": "Tenable.io",
+      "inputs": {
+        "monthly": [
+          "samples/tenable_100_row/tenable_io_april_2026_100plus.csv",
+          "samples/tenable_100_row/tenable_io_may_2026_100plus.csv",
+          "samples/tenable_100_row/tenable_io_june_2026_100plus.csv",
+          "samples/tenable_100_row/tenable_io_july_2026_100plus.csv"
+        ],
+        "adhoc": "samples/tenable_100_row/tenable_io_july_2026_100plus.csv"
+      },
+      "monthly": {
+        "reportRange": "April 2026 - July 2026",
+        "periods": [
+          "April 2026",
+          "May 2026",
+          "June 2026",
+          "July 2026"
+        ],
+        "totalOpen": 125,
+        "newFindings": 30,
+        "notClosed": 95,
+        "patchedFindings": 25,
+        "patchedFormula": {
+          "previousOpen": 120,
+          "plusNew": 30,
+          "minusCurrentOpen": 125,
+          "result": 25
+        },
+        "patchPriority": {
+          "P1": 41,
+          "P2": 31,
+          "P3": 26,
+          "P4": 27
+        },
+        "ageByPatchPriority": {
+          "P1": {
+            ">7 days": 41,
+            ">30 days": 34,
+            ">60 days": 27,
+            ">180 days (6+ months)": 6
+          },
+          "P2": {
+            ">7 days": 29,
+            ">30 days": 26,
+            ">60 days": 21,
+            ">180 days (6+ months)": 5
+          },
+          "P3": {
+            ">7 days": 26,
+            ">30 days": 19,
+            ">60 days": 16,
+            ">180 days (6+ months)": 2
+          },
+          "P4": {
+            ">7 days": 27,
+            ">30 days": 21,
+            ">60 days": 19,
+            ">180 days (6+ months)": 5
+          }
+        },
+        "discoveredLast3Periods": [
+          {
+            "month": "May 2026",
+            "period": "May 2026",
+            "discoveredCount": 26
+          },
+          {
+            "month": "June 2026",
+            "period": "June 2026",
+            "discoveredCount": 17
+          },
+          {
+            "month": "July 2026",
+            "period": "July 2026",
+            "discoveredCount": 25
+          }
+        ],
+        "patchedLast3Periods": [
+          {
+            "month": "May 2026",
+            "period": "May 2026",
+            "remediatedCount": 20
+          },
+          {
+            "month": "June 2026",
+            "period": "June 2026",
+            "remediatedCount": 30
+          },
+          {
+            "month": "July 2026",
+            "period": "July 2026",
+            "remediatedCount": 25
+          }
+        ],
+        "validation": {
+          "valid": true,
+          "checks": {
+            "discoveredTrendLast3Periods": true,
+            "totalOpenIdentity": true,
+            "totalOpenByPatchPriority": true,
+            "ageByPatchPriority": true,
+            "patchedTrendAndFormula": true
+          },
+          "failures": []
+        },
+        "qualys": null,
+        "crowdstrike": null,
+        "openshift": null
+      },
+      "adhoc": {
+        "totalOpen": 125,
+        "distinctAssets": 40,
+        "exploitAvailable": 51,
+        "severity": {
+          "Critical": 31,
+          "High": 31,
+          "Medium": 31,
+          "Low": 32,
+          "Info": 0,
+          "Unknown": 0
+        },
+        "patchPriority": {
+          "P1": 41,
+          "P2": 31,
+          "P3": 26,
+          "P4": 27
+        },
+        "qualys": null,
+        "crowdstrike": null,
+        "openshift": null
+      },
+      "outputs": {
+        "monthlyWorkbook": "final/Production Evidence/Tenable_IO/MVA_Tenable_IO_Monthly_Report.xlsx",
+        "adhocWorkbook": "final/Production Evidence/Tenable_IO/MVA_Tenable_IO_Adhoc_Report.xlsx",
+        "remediationGuide": "final/Production Evidence/Tenable_IO/MVA_Tenable_IO_July_2026_Remediation_Guide.pdf",
+        "executiveDashboard": "final/Production Evidence/Tenable_IO/MVA_Tenable_IO_July_2026_Executive_Dashboard.pdf"
+      }
+    },
+    {
+      "source": "Qualys",
+      "inputs": {
+        "monthly": [
+          "samples/qualys_100_row/qualys_monthly_april_2026_100plus.csv",
+          "samples/qualys_100_row/qualys_monthly_may_2026_100plus.csv",
+          "samples/qualys_100_row/qualys_monthly_june_2026_100plus.csv",
+          "samples/qualys_100_row/qualys_monthly_july_2026_100plus.csv"
+        ],
+        "adhoc": "samples/qualys_100_row/qualys_adhoc_july_2026_100plus.csv"
+      },
+      "monthly": {
+        "reportRange": "April 2026 - July 2026",
+        "periods": [
+          "April 2026",
+          "May 2026",
+          "June 2026",
+          "July 2026"
+        ],
+        "totalOpen": 125,
+        "newFindings": 30,
+        "notClosed": 95,
+        "patchedFindings": 25,
+        "patchedFormula": {
+          "previousOpen": 120,
+          "plusNew": 30,
+          "minusCurrentOpen": 125,
+          "result": 25
+        },
+        "patchPriority": {
+          "P1": 41,
+          "P2": 31,
+          "P3": 26,
+          "P4": 27
+        },
+        "ageByPatchPriority": {
+          "P1": {
+            ">7 days": 41,
+            ">30 days": 34,
+            ">60 days": 27,
+            ">180 days (6+ months)": 6
+          },
+          "P2": {
+            ">7 days": 29,
+            ">30 days": 26,
+            ">60 days": 21,
+            ">180 days (6+ months)": 5
+          },
+          "P3": {
+            ">7 days": 26,
+            ">30 days": 19,
+            ">60 days": 16,
+            ">180 days (6+ months)": 2
+          },
+          "P4": {
+            ">7 days": 27,
+            ">30 days": 21,
+            ">60 days": 19,
+            ">180 days (6+ months)": 5
+          }
+        },
+        "discoveredLast3Periods": [
+          {
+            "month": "May 2026",
+            "period": "May 2026",
+            "discoveredCount": 26
+          },
+          {
+            "month": "June 2026",
+            "period": "June 2026",
+            "discoveredCount": 17
+          },
+          {
+            "month": "July 2026",
+            "period": "July 2026",
+            "discoveredCount": 25
+          }
+        ],
+        "patchedLast3Periods": [
+          {
+            "month": "May 2026",
+            "period": "May 2026",
+            "remediatedCount": 20
+          },
+          {
+            "month": "June 2026",
+            "period": "June 2026",
+            "remediatedCount": 30
+          },
+          {
+            "month": "July 2026",
+            "period": "July 2026",
+            "remediatedCount": 25
+          }
+        ],
+        "validation": {
+          "valid": true,
+          "checks": {
+            "discoveredTrendLast3Periods": true,
+            "totalOpenIdentity": true,
+            "totalOpenByPatchPriority": true,
+            "ageByPatchPriority": true,
+            "patchedTrendAndFormula": true
+          },
+          "failures": []
+        },
+        "qualys": {
+          "totalOpen": 125,
+          "exploitAvailable": 51,
+          "repeatedFindings": 100,
+          "detectionEvents": 433,
+          "datacentres": [
+            {
+              "datacentre": "DC1",
+              "vulnerabilityCount": 42
+            },
+            {
+              "datacentre": "DR",
+              "vulnerabilityCount": 42
+            },
+            {
+              "datacentre": "DC2",
+              "vulnerabilityCount": 41
+            }
+          ],
+          "statuses": [
+            {
+              "status": "Active",
+              "vulnerabilityCount": 95
+            },
+            {
+              "status": "New",
+              "vulnerabilityCount": 25
+            },
+            {
+              "status": "Re-Opened",
+              "vulnerabilityCount": 5
+            }
+          ],
+          "vendorRatings": [
+            {
+              "rating": "2 - Low",
+              "vulnerabilityCount": 32
+            },
+            {
+              "rating": "3 - Medium",
+              "vulnerabilityCount": 31
+            },
+            {
+              "rating": "4 - High",
+              "vulnerabilityCount": 31
+            },
+            {
+              "rating": "5 - Critical",
+              "vulnerabilityCount": 31
+            }
+          ]
+        },
+        "crowdstrike": null,
+        "openshift": null
+      },
+      "adhoc": {
+        "totalOpen": 125,
+        "distinctAssets": 40,
+        "exploitAvailable": 51,
+        "severity": {
+          "Critical": 31,
+          "High": 31,
+          "Medium": 31,
+          "Low": 32,
+          "Info": 0,
+          "Unknown": 0
+        },
+        "patchPriority": {
+          "P1": 41,
+          "P2": 31,
+          "P3": 26,
+          "P4": 27
+        },
+        "qualys": {
+          "totalOpen": 125,
+          "exploitAvailable": 51,
+          "repeatedFindings": 0,
+          "detectionEvents": 125,
+          "datacentres": [
+            {
+              "datacentre": "DC1",
+              "vulnerabilityCount": 42
+            },
+            {
+              "datacentre": "DR",
+              "vulnerabilityCount": 42
+            },
+            {
+              "datacentre": "DC2",
+              "vulnerabilityCount": 41
+            }
+          ],
+          "statuses": [
+            {
+              "status": "Unspecified",
+              "vulnerabilityCount": 125
+            }
+          ],
+          "vendorRatings": [
+            {
+              "rating": "2 - Low",
+              "vulnerabilityCount": 32
+            },
+            {
+              "rating": "3 - Medium",
+              "vulnerabilityCount": 31
+            },
+            {
+              "rating": "4 - High",
+              "vulnerabilityCount": 31
+            },
+            {
+              "rating": "5 - Critical",
+              "vulnerabilityCount": 31
+            }
+          ]
+        },
+        "crowdstrike": null,
+        "openshift": null
+      },
+      "outputs": {
+        "monthlyWorkbook": "final/Production Evidence/Qualys/MVA_Qualys_Monthly_Report.xlsx",
+        "adhocWorkbook": "final/Production Evidence/Qualys/MVA_Qualys_Adhoc_Report.xlsx",
+        "remediationGuide": "final/Production Evidence/Qualys/MVA_Qualys_July_2026_Remediation_Guide.pdf",
+        "executiveDashboard": "final/Production Evidence/Qualys/MVA_Qualys_July_2026_Executive_Dashboard.pdf"
+      }
+    },
+    {
+      "source": "Custom Qualys",
+      "inputs": {
+        "monthly": [
+          "samples/custom_qualys_100_row/custom_qualys_monthly_april_2026.csv",
+          "samples/custom_qualys_100_row/custom_qualys_monthly_may_2026.csv",
+          "samples/custom_qualys_100_row/custom_qualys_monthly_june_2026.csv",
+          "samples/custom_qualys_100_row/custom_qualys_monthly_july_2026.csv"
+        ],
+        "adhoc": "samples/custom_qualys_100_row/custom_qualys_adhoc_july_2026.csv"
+      },
+      "monthly": {
+        "reportRange": "April 2026 - July 2026",
+        "periods": [
+          "April 2026",
+          "May 2026",
+          "June 2026",
+          "July 2026"
+        ],
+        "totalOpen": 125,
+        "newFindings": 30,
+        "notClosed": 95,
+        "patchedFindings": 25,
+        "patchedFormula": {
+          "previousOpen": 120,
+          "plusNew": 30,
+          "minusCurrentOpen": 125,
+          "result": 25
+        },
+        "patchPriority": {
+          "P1": 31,
+          "P2": 64,
+          "P3": 15,
+          "P4": 15
+        },
+        "ageByPatchPriority": {
+          "P1": {
+            ">7 days": 31,
+            ">30 days": 25,
+            ">60 days": 19,
+            ">180 days (6+ months)": 3
+          },
+          "P2": {
+            ">7 days": 62,
+            ">30 days": 51,
+            ">60 days": 44,
+            ">180 days (6+ months)": 11
+          },
+          "P3": {
+            ">7 days": 15,
+            ">30 days": 12,
+            ">60 days": 10,
+            ">180 days (6+ months)": 3
+          },
+          "P4": {
+            ">7 days": 15,
+            ">30 days": 12,
+            ">60 days": 10,
+            ">180 days (6+ months)": 1
+          }
+        },
+        "discoveredLast3Periods": [
+          {
+            "month": "May 2026",
+            "period": "May 2026",
+            "discoveredCount": 26
+          },
+          {
+            "month": "June 2026",
+            "period": "June 2026",
+            "discoveredCount": 17
+          },
+          {
+            "month": "July 2026",
+            "period": "July 2026",
+            "discoveredCount": 25
+          }
+        ],
+        "patchedLast3Periods": [
+          {
+            "month": "May 2026",
+            "period": "May 2026",
+            "remediatedCount": 20
+          },
+          {
+            "month": "June 2026",
+            "period": "June 2026",
+            "remediatedCount": 30
+          },
+          {
+            "month": "July 2026",
+            "period": "July 2026",
+            "remediatedCount": 25
+          }
+        ],
+        "validation": {
+          "valid": true,
+          "checks": {
+            "discoveredTrendLast3Periods": true,
+            "totalOpenIdentity": true,
+            "totalOpenByPatchPriority": true,
+            "ageByPatchPriority": true,
+            "patchedTrendAndFormula": true
+          },
+          "failures": []
+        },
+        "qualys": {
+          "totalOpen": 125,
+          "exploitAvailable": 51,
+          "repeatedFindings": 100,
+          "detectionEvents": 433,
+          "datacentres": [
+            {
+              "datacentre": "DC1",
+              "vulnerabilityCount": 42
+            },
+            {
+              "datacentre": "DR",
+              "vulnerabilityCount": 42
+            },
+            {
+              "datacentre": "DC2",
+              "vulnerabilityCount": 41
+            }
+          ],
+          "statuses": [
+            {
+              "status": "Active",
+              "vulnerabilityCount": 95
+            },
+            {
+              "status": "New",
+              "vulnerabilityCount": 25
+            },
+            {
+              "status": "Re-Opened",
+              "vulnerabilityCount": 5
+            }
+          ],
+          "vendorRatings": [
+            {
+              "rating": "1 - Minimal",
+              "vulnerabilityCount": 25
+            },
+            {
+              "rating": "2 - Medium",
+              "vulnerabilityCount": 25
+            },
+            {
+              "rating": "3 - Serious",
+              "vulnerabilityCount": 25
+            },
+            {
+              "rating": "4 - Critical",
+              "vulnerabilityCount": 25
+            },
+            {
+              "rating": "5 - Urgent",
+              "vulnerabilityCount": 25
+            }
+          ]
+        },
+        "crowdstrike": null,
+        "openshift": null
+      },
+      "adhoc": {
+        "totalOpen": 125,
+        "distinctAssets": 40,
+        "exploitAvailable": 51,
+        "severity": {
+          "Critical": 50,
+          "High": 25,
+          "Medium": 25,
+          "Low": 25,
+          "Info": 0,
+          "Unknown": 0
+        },
+        "patchPriority": {
+          "P1": 31,
+          "P2": 64,
+          "P3": 15,
+          "P4": 15
+        },
+        "qualys": {
+          "totalOpen": 125,
+          "exploitAvailable": 51,
+          "repeatedFindings": 0,
+          "detectionEvents": 125,
+          "datacentres": [
+            {
+              "datacentre": "DC1",
+              "vulnerabilityCount": 42
+            },
+            {
+              "datacentre": "DR",
+              "vulnerabilityCount": 42
+            },
+            {
+              "datacentre": "DC2",
+              "vulnerabilityCount": 41
+            }
+          ],
+          "statuses": [
+            {
+              "status": "Unspecified",
+              "vulnerabilityCount": 125
+            }
+          ],
+          "vendorRatings": [
+            {
+              "rating": "1 - Minimal",
+              "vulnerabilityCount": 25
+            },
+            {
+              "rating": "2 - Medium",
+              "vulnerabilityCount": 25
+            },
+            {
+              "rating": "3 - Serious",
+              "vulnerabilityCount": 25
+            },
+            {
+              "rating": "4 - Critical",
+              "vulnerabilityCount": 25
+            },
+            {
+              "rating": "5 - Urgent",
+              "vulnerabilityCount": 25
+            }
+          ]
+        },
+        "crowdstrike": null,
+        "openshift": null
+      },
+      "outputs": {
+        "monthlyWorkbook": "final/Production Evidence/Custom_Qualys/MVA_Custom_Qualys_Monthly_Report.xlsx",
+        "adhocWorkbook": "final/Production Evidence/Custom_Qualys/MVA_Custom_Qualys_Adhoc_Report.xlsx",
+        "remediationGuide": "final/Production Evidence/Custom_Qualys/MVA_Custom_Qualys_July_2026_Remediation_Guide.pdf",
+        "executiveDashboard": "final/Production Evidence/Custom_Qualys/MVA_Custom_Qualys_July_2026_Executive_Dashboard.pdf"
+      }
+    },
+    {
+      "source": "CrowdStrike",
+      "inputs": {
+        "monthly": [
+          "samples/crowdstrike_100_row/crowdstrike_vulnerabilities_april_2026_100plus.csv",
+          "samples/crowdstrike_100_row/crowdstrike_vulnerabilities_may_2026_100plus.csv",
+          "samples/crowdstrike_100_row/crowdstrike_vulnerabilities_june_2026_100plus.csv",
+          "samples/crowdstrike_100_row/crowdstrike_vulnerabilities_july_2026_100plus.csv"
+        ],
+        "adhoc": "samples/crowdstrike_100_row/crowdstrike_vulnerability_per_asset_july_2026_100plus.csv"
+      },
+      "monthly": {
+        "reportRange": "April 2026 - July 2026",
+        "periods": [
+          "April 2026",
+          "May 2026",
+          "June 2026",
+          "July 2026"
+        ],
+        "totalOpen": 120,
+        "newFindings": 20,
+        "notClosed": 100,
+        "patchedFindings": 25,
+        "patchedFormula": {
+          "previousOpen": 125,
+          "plusNew": 20,
+          "minusCurrentOpen": 120,
+          "result": 25
+        },
+        "patchPriority": {
+          "P1": 20,
+          "P2": 60,
+          "P3": 20,
+          "P4": 20
+        },
+        "ageByPatchPriority": {
+          "P1": {
+            ">7 days": 20,
+            ">30 days": 16,
+            ">60 days": 12,
+            ">180 days (6+ months)": 2
+          },
+          "P2": {
+            ">7 days": 60,
+            ">30 days": 51,
+            ">60 days": 38,
+            ">180 days (6+ months)": 8
+          },
+          "P3": {
+            ">7 days": 20,
+            ">30 days": 16,
+            ">60 days": 12,
+            ">180 days (6+ months)": 2
+          },
+          "P4": {
+            ">7 days": 20,
+            ">30 days": 17,
+            ">60 days": 13,
+            ">180 days (6+ months)": 3
+          }
+        },
+        "discoveredLast3Periods": [
+          {
+            "month": "May 2026",
+            "period": "May 2026",
+            "discoveredCount": 30
+          },
+          {
+            "month": "June 2026",
+            "period": "June 2026",
+            "discoveredCount": 25
+          },
+          {
+            "month": "July 2026",
+            "period": "July 2026",
+            "discoveredCount": 20
+          }
+        ],
+        "patchedLast3Periods": [
+          {
+            "month": "May 2026",
+            "period": "May 2026",
+            "remediatedCount": 20
+          },
+          {
+            "month": "June 2026",
+            "period": "June 2026",
+            "remediatedCount": 20
+          },
+          {
+            "month": "July 2026",
+            "period": "July 2026",
+            "remediatedCount": 25
+          }
+        ],
+        "validation": {
+          "valid": true,
+          "checks": {
+            "discoveredTrendLast3Periods": true,
+            "totalOpenIdentity": true,
+            "totalOpenByPatchPriority": true,
+            "ageByPatchPriority": true,
+            "patchedTrendAndFormula": true
+          },
+          "failures": []
+        },
+        "qualys": null,
+        "crowdstrike": {
+          "exploitAvailable": 40,
+          "cisaKev": 11,
+          "internetExposed": 24,
+          "internetExposureObserved": 120,
+          "internetExposureUnknown": 0,
+          "criticalAssets": 12,
+          "confirmedFindings": 96,
+          "potentialFindings": 24,
+          "confidenceDistribution": [
+            {
+              "confidence": "Confirmed",
+              "vulnerabilityCount": 96
+            },
+            {
+              "confidence": "Potential",
+              "vulnerabilityCount": 24
+            }
+          ],
+          "exploitEvidenceSources": [
+            {
+              "source": "No positive exploit evidence",
+              "vulnerabilityCount": 80
+            },
+            {
+              "source": "Exploit status label",
+              "vulnerabilityCount": 40
+            }
+          ],
+          "topProducts": [
+            {
+              "product": "Apache Log4j",
+              "vulnerabilityCount": 15
+            },
+            {
+              "product": "Apache Tomcat",
+              "vulnerabilityCount": 15
+            },
+            {
+              "product": "Cisco IOS XE",
+              "vulnerabilityCount": 15
+            },
+            {
+              "product": "Google Chrome",
+              "vulnerabilityCount": 15
+            },
+            {
+              "product": "Linux Kernel",
+              "vulnerabilityCount": 15
+            },
+            {
+              "product": "Microsoft Exchange Server",
+              "vulnerabilityCount": 15
+            },
+            {
+              "product": "Microsoft Windows Server",
+              "vulnerabilityCount": 15
+            },
+            {
+              "product": "OpenSSL",
+              "vulnerabilityCount": 15
+            }
+          ],
+          "topAssets": [
+            {
+              "asset": "cs-asset-001.corp.example",
+              "vulnerabilityCount": 3
+            },
+            {
+              "asset": "cs-asset-002.corp.example",
+              "vulnerabilityCount": 3
+            },
+            {
+              "asset": "cs-asset-003.corp.example",
+              "vulnerabilityCount": 3
+            },
+            {
+              "asset": "cs-asset-004.corp.example",
+              "vulnerabilityCount": 3
+            },
+            {
+              "asset": "cs-asset-005.corp.example",
+              "vulnerabilityCount": 3
+            },
+            {
+              "asset": "cs-asset-021.corp.example",
+              "vulnerabilityCount": 3
+            },
+            {
+              "asset": "cs-asset-022.corp.example",
+              "vulnerabilityCount": 3
+            },
+            {
+              "asset": "cs-asset-023.corp.example",
+              "vulnerabilityCount": 3
+            },
+            {
+              "asset": "cs-asset-024.corp.example",
+              "vulnerabilityCount": 3
+            },
+            {
+              "asset": "cs-asset-025.corp.example",
+              "vulnerabilityCount": 3
+            }
+          ]
+        },
+        "openshift": null
+      },
+      "adhoc": {
+        "totalOpen": 120,
+        "distinctAssets": 45,
+        "exploitAvailable": 40,
+        "severity": {
+          "Critical": 30,
+          "High": 30,
+          "Medium": 30,
+          "Low": 30,
+          "Info": 0,
+          "Unknown": 0
+        },
+        "patchPriority": {
+          "P1": 20,
+          "P2": 60,
+          "P3": 20,
+          "P4": 20
+        },
+        "qualys": null,
+        "crowdstrike": {
+          "exploitAvailable": 40,
+          "cisaKev": 11,
+          "internetExposed": 24,
+          "internetExposureObserved": 120,
+          "internetExposureUnknown": 0,
+          "criticalAssets": 12,
+          "confirmedFindings": 96,
+          "potentialFindings": 24,
+          "confidenceDistribution": [
+            {
+              "confidence": "Confirmed",
+              "vulnerabilityCount": 96
+            },
+            {
+              "confidence": "Potential",
+              "vulnerabilityCount": 24
+            }
+          ],
+          "exploitEvidenceSources": [
+            {
+              "source": "No positive exploit evidence",
+              "vulnerabilityCount": 80
+            },
+            {
+              "source": "Exploit status label",
+              "vulnerabilityCount": 40
+            }
+          ],
+          "topProducts": [
+            {
+              "product": "Apache Log4j",
+              "vulnerabilityCount": 15
+            },
+            {
+              "product": "Apache Tomcat",
+              "vulnerabilityCount": 15
+            },
+            {
+              "product": "Cisco IOS XE",
+              "vulnerabilityCount": 15
+            },
+            {
+              "product": "Google Chrome",
+              "vulnerabilityCount": 15
+            },
+            {
+              "product": "Linux Kernel",
+              "vulnerabilityCount": 15
+            },
+            {
+              "product": "Microsoft Exchange Server",
+              "vulnerabilityCount": 15
+            },
+            {
+              "product": "Microsoft Windows Server",
+              "vulnerabilityCount": 15
+            },
+            {
+              "product": "OpenSSL",
+              "vulnerabilityCount": 15
+            }
+          ],
+          "topAssets": [
+            {
+              "asset": "cs-asset-001.corp.example",
+              "vulnerabilityCount": 3
+            },
+            {
+              "asset": "cs-asset-002.corp.example",
+              "vulnerabilityCount": 3
+            },
+            {
+              "asset": "cs-asset-003.corp.example",
+              "vulnerabilityCount": 3
+            },
+            {
+              "asset": "cs-asset-004.corp.example",
+              "vulnerabilityCount": 3
+            },
+            {
+              "asset": "cs-asset-005.corp.example",
+              "vulnerabilityCount": 3
+            },
+            {
+              "asset": "cs-asset-021.corp.example",
+              "vulnerabilityCount": 3
+            },
+            {
+              "asset": "cs-asset-022.corp.example",
+              "vulnerabilityCount": 3
+            },
+            {
+              "asset": "cs-asset-023.corp.example",
+              "vulnerabilityCount": 3
+            },
+            {
+              "asset": "cs-asset-024.corp.example",
+              "vulnerabilityCount": 3
+            },
+            {
+              "asset": "cs-asset-025.corp.example",
+              "vulnerabilityCount": 3
+            }
+          ]
+        },
+        "openshift": null
+      },
+      "outputs": {
+        "monthlyWorkbook": "final/Production Evidence/CrowdStrike/MVA_CrowdStrike_Monthly_Report.xlsx",
+        "adhocWorkbook": "final/Production Evidence/CrowdStrike/MVA_CrowdStrike_Adhoc_Report.xlsx",
+        "remediationGuide": "final/Production Evidence/CrowdStrike/MVA_CrowdStrike_July_2026_Remediation_Guide.pdf",
+        "executiveDashboard": "final/Production Evidence/CrowdStrike/MVA_CrowdStrike_July_2026_Executive_Dashboard.pdf"
+      }
+    },
+    {
+      "source": "Red Hat OpenShift",
+      "inputs": {
+        "monthly": [
+          "samples/openshift_100_row/openshift_april_2026_100plus.csv",
+          "samples/openshift_100_row/openshift_may_2026_100plus.csv",
+          "samples/openshift_100_row/openshift_june_2026_100plus.csv",
+          "samples/openshift_100_row/openshift_july_2026_100plus.csv"
+        ],
+        "adhoc": "samples/openshift_100_row/openshift_july_2026_100plus.csv"
+      },
+      "monthly": {
+        "reportRange": "April 2026 - July 2026",
+        "periods": [
+          "April 2026",
+          "May 2026",
+          "June 2026",
+          "July 2026"
+        ],
+        "totalOpen": 140,
+        "newFindings": 30,
+        "notClosed": 110,
+        "patchedFindings": 20,
+        "patchedFormula": {
+          "previousOpen": 130,
+          "plusNew": 30,
+          "minusCurrentOpen": 140,
+          "result": 20
+        },
+        "patchPriority": {
+          "P1": 0,
+          "P2": 71,
+          "P3": 46,
+          "P4": 23
+        },
+        "ageByPatchPriority": {
+          "P1": {
+            ">7 days": 0,
+            ">30 days": 0,
+            ">60 days": 0,
+            ">180 days (6+ months)": 0
+          },
+          "P2": {
+            ">7 days": 71,
+            ">30 days": 56,
+            ">60 days": 43,
+            ">180 days (6+ months)": 11
+          },
+          "P3": {
+            ">7 days": 46,
+            ">30 days": 36,
+            ">60 days": 28,
+            ">180 days (6+ months)": 7
+          },
+          "P4": {
+            ">7 days": 23,
+            ">30 days": 18,
+            ">60 days": 14,
+            ">180 days (6+ months)": 4
+          }
+        },
+        "discoveredLast3Periods": [
+          {
+            "month": "May 2026",
+            "period": "May 2026",
+            "discoveredCount": 30
+          },
+          {
+            "month": "June 2026",
+            "period": "June 2026",
+            "discoveredCount": 25
+          },
+          {
+            "month": "July 2026",
+            "period": "July 2026",
+            "discoveredCount": 30
+          }
+        ],
+        "patchedLast3Periods": [
+          {
+            "month": "May 2026",
+            "period": "May 2026",
+            "remediatedCount": 20
+          },
+          {
+            "month": "June 2026",
+            "period": "June 2026",
+            "remediatedCount": 15
+          },
+          {
+            "month": "July 2026",
+            "period": "July 2026",
+            "remediatedCount": 20
+          }
+        ],
+        "validation": {
+          "valid": true,
+          "checks": {
+            "discoveredTrendLast3Periods": true,
+            "totalOpenIdentity": true,
+            "totalOpenByPatchPriority": true,
+            "ageByPatchPriority": true,
+            "patchedTrendAndFormula": true
+          },
+          "failures": []
+        },
+        "qualys": null,
+        "crowdstrike": null,
+        "openshift": {
+          "totalOpen": 140,
+          "fixable": 112,
+          "fixedVersionSupplied": 112,
+          "noFixedVersion": 28,
+          "namespaceCount": 8,
+          "deploymentCount": 40,
+          "imageCount": 140,
+          "componentCount": 10,
+          "namespaces": [
+            {
+              "namespace": "customer-portal",
+              "vulnerabilityCount": 18
+            },
+            {
+              "namespace": "edge",
+              "vulnerabilityCount": 18
+            },
+            {
+              "namespace": "identity",
+              "vulnerabilityCount": 18
+            },
+            {
+              "namespace": "payments",
+              "vulnerabilityCount": 18
+            },
+            {
+              "namespace": "analytics",
+              "vulnerabilityCount": 17
+            },
+            {
+              "namespace": "integration",
+              "vulnerabilityCount": 17
+            },
+            {
+              "namespace": "monitoring",
+              "vulnerabilityCount": 17
+            },
+            {
+              "namespace": "shared-services",
+              "vulnerabilityCount": 17
+            }
+          ],
+          "components": [
+            {
+              "component": "curl",
+              "vulnerabilityCount": 14
+            },
+            {
+              "component": "expat",
+              "vulnerabilityCount": 14
+            },
+            {
+              "component": "glibc",
+              "vulnerabilityCount": 14
+            },
+            {
+              "component": "go-toolset",
+              "vulnerabilityCount": 14
+            },
+            {
+              "component": "krb5-libs",
+              "vulnerabilityCount": 14
+            },
+            {
+              "component": "libxml2",
+              "vulnerabilityCount": 14
+            },
+            {
+              "component": "nginx",
+              "vulnerabilityCount": 14
+            },
+            {
+              "component": "openssl",
+              "vulnerabilityCount": 14
+            },
+            {
+              "component": "python3-libs",
+              "vulnerabilityCount": 14
+            },
+            {
+              "component": "zlib",
+              "vulnerabilityCount": 14
+            }
+          ],
+          "images": [
+            {
+              "image": "registry.example.internal/core/analytics-api-4:2026.31",
+              "vulnerabilityCount": 1
+            },
+            {
+              "image": "registry.example.internal/core/analytics-gateway-1:2026.25",
+              "vulnerabilityCount": 1
+            },
+            {
+              "image": "registry.example.internal/core/analytics-scheduler-3:2026.27",
+              "vulnerabilityCount": 1
+            },
+            {
+              "image": "registry.example.internal/core/analytics-web-5:2026.21",
+              "vulnerabilityCount": 1
+            },
+            {
+              "image": "registry.example.internal/core/analytics-worker-2:2026.23",
+              "vulnerabilityCount": 1
+            },
+            {
+              "image": "registry.example.internal/core/customer-portal-api-3:2026.28",
+              "vulnerabilityCount": 1
+            },
+            {
+              "image": "registry.example.internal/core/customer-portal-gateway-5:2026.22",
+              "vulnerabilityCount": 1
+            },
+            {
+              "image": "registry.example.internal/core/customer-portal-scheduler-2:2026.24",
+              "vulnerabilityCount": 1
+            },
+            {
+              "image": "registry.example.internal/core/customer-portal-scheduler-2:2026.30",
+              "vulnerabilityCount": 1
+            },
+            {
+              "image": "registry.example.internal/core/customer-portal-web-4:2026.32",
+              "vulnerabilityCount": 1
+            }
+          ]
+        }
+      },
+      "adhoc": {
+        "totalOpen": 140,
+        "distinctAssets": 40,
+        "exploitAvailable": 0,
+        "severity": {
+          "Critical": 23,
+          "High": 48,
+          "Medium": 46,
+          "Low": 23,
+          "Info": 0,
+          "Unknown": 0
+        },
+        "patchPriority": {
+          "P1": 0,
+          "P2": 71,
+          "P3": 46,
+          "P4": 23
+        },
+        "qualys": null,
+        "crowdstrike": null,
+        "openshift": {
+          "totalOpen": 140,
+          "fixable": 112,
+          "fixedVersionSupplied": 112,
+          "noFixedVersion": 28,
+          "namespaceCount": 8,
+          "deploymentCount": 40,
+          "imageCount": 140,
+          "componentCount": 10,
+          "namespaces": [
+            {
+              "namespace": "customer-portal",
+              "vulnerabilityCount": 18
+            },
+            {
+              "namespace": "edge",
+              "vulnerabilityCount": 18
+            },
+            {
+              "namespace": "identity",
+              "vulnerabilityCount": 18
+            },
+            {
+              "namespace": "payments",
+              "vulnerabilityCount": 18
+            },
+            {
+              "namespace": "analytics",
+              "vulnerabilityCount": 17
+            },
+            {
+              "namespace": "integration",
+              "vulnerabilityCount": 17
+            },
+            {
+              "namespace": "monitoring",
+              "vulnerabilityCount": 17
+            },
+            {
+              "namespace": "shared-services",
+              "vulnerabilityCount": 17
+            }
+          ],
+          "components": [
+            {
+              "component": "curl",
+              "vulnerabilityCount": 14
+            },
+            {
+              "component": "expat",
+              "vulnerabilityCount": 14
+            },
+            {
+              "component": "glibc",
+              "vulnerabilityCount": 14
+            },
+            {
+              "component": "go-toolset",
+              "vulnerabilityCount": 14
+            },
+            {
+              "component": "krb5-libs",
+              "vulnerabilityCount": 14
+            },
+            {
+              "component": "libxml2",
+              "vulnerabilityCount": 14
+            },
+            {
+              "component": "nginx",
+              "vulnerabilityCount": 14
+            },
+            {
+              "component": "openssl",
+              "vulnerabilityCount": 14
+            },
+            {
+              "component": "python3-libs",
+              "vulnerabilityCount": 14
+            },
+            {
+              "component": "zlib",
+              "vulnerabilityCount": 14
+            }
+          ],
+          "images": [
+            {
+              "image": "registry.example.internal/core/analytics-api-4:2026.31",
+              "vulnerabilityCount": 1
+            },
+            {
+              "image": "registry.example.internal/core/analytics-gateway-1:2026.25",
+              "vulnerabilityCount": 1
+            },
+            {
+              "image": "registry.example.internal/core/analytics-scheduler-3:2026.27",
+              "vulnerabilityCount": 1
+            },
+            {
+              "image": "registry.example.internal/core/analytics-web-5:2026.21",
+              "vulnerabilityCount": 1
+            },
+            {
+              "image": "registry.example.internal/core/analytics-worker-2:2026.23",
+              "vulnerabilityCount": 1
+            },
+            {
+              "image": "registry.example.internal/core/customer-portal-api-3:2026.28",
+              "vulnerabilityCount": 1
+            },
+            {
+              "image": "registry.example.internal/core/customer-portal-gateway-5:2026.22",
+              "vulnerabilityCount": 1
+            },
+            {
+              "image": "registry.example.internal/core/customer-portal-scheduler-2:2026.24",
+              "vulnerabilityCount": 1
+            },
+            {
+              "image": "registry.example.internal/core/customer-portal-scheduler-2:2026.30",
+              "vulnerabilityCount": 1
+            },
+            {
+              "image": "registry.example.internal/core/customer-portal-web-4:2026.32",
+              "vulnerabilityCount": 1
+            }
+          ]
+        }
+      },
+      "outputs": {
+        "monthlyWorkbook": "final/Production Evidence/OpenShift/MVA_OpenShift_Monthly_Report.xlsx",
+        "adhocWorkbook": "final/Production Evidence/OpenShift/MVA_OpenShift_Adhoc_Report.xlsx",
+        "remediationGuide": "final/Production Evidence/OpenShift/MVA_OpenShift_July_2026_Remediation_Guide.pdf",
+        "executiveDashboard": "final/Production Evidence/OpenShift/MVA_OpenShift_July_2026_Executive_Dashboard.pdf"
+      }
+    }
+  ]
+}

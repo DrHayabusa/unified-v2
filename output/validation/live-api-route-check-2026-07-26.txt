@@ -1,0 +1,6 @@
+MVA live API route validation
+Validated: 2026-07-26T21:41:37.801Z
+
+GET /health -> HTTP 200
+GET /api/v1/auth/setup-status -> HTTP 200
+POST /api/v1/auth/login -> HTTP 401
