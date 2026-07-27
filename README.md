@@ -139,6 +139,7 @@ Production traffic should enter only through an organization-managed HTTPS rever
 ## Authoritative Documentation
 
 - Architecture and stack: [`docs/ARCHITECTURE_AND_STACK.md`](docs/ARCHITECTURE_AND_STACK.md)
+- Repository folder and file guide: [`docs/REPOSITORY_STRUCTURE.md`](docs/REPOSITORY_STRUCTURE.md)
 - Field-to-dashboard mapping and formulas: [`docs/FIELD_TO_DASHBOARD_MAPPING.md`](docs/FIELD_TO_DASHBOARD_MAPPING.md)
 - Complete build and handover: [`docs/COMPLETE_PRODUCTION_HANDOVER.md`](docs/COMPLETE_PRODUCTION_HANDOVER.md)
 - Internal deployment runbook: [`docs/DEPLOYMENT_RUNBOOK.md`](docs/DEPLOYMENT_RUNBOOK.md)
