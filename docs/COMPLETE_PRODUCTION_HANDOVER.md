@@ -484,6 +484,7 @@ Migration sequence:
 | `009_scanner_evidence_and_threat_intel.sql` | Qualys/CrowdStrike evidence and CVE library |
 | `010_threat_intel_asset_identity.sql` | Threat-intel IP/DNS |
 | `011_openshift_workload_evidence.sql` | OpenShift namespace, deployment, image, component, fixability, fixed version, and CVSS evidence |
+| `012_repair_report_period_date_capture.sql` | Corrects historical month-year values that were stored as BC dates |
 
 Migrations are applied in filename order and are written to be safely repeatable.
 

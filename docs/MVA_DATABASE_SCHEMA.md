@@ -4,7 +4,7 @@
 
 **Database:** PostgreSQL 17
 **Application API:** Node.js with Fastify
-**Schema source:** `server/migrations/001_initial.sql` through `011_openshift_workload_evidence.sql`
+**Schema source:** `server/migrations/001_initial.sql` through `012_repair_report_period_date_capture.sql`
 **Document purpose:** Email-ready technical overview for architecture, infrastructure, database, and AI-platform teams.
 
 ## 1. Architecture Summary
@@ -307,6 +307,4 @@ No key should be committed to Git, stored in React, exposed through a `VITE_*` v
 
 ## 10. Migration Operation
 
-At API startup, `server/src/repository.js` reads every `.sql` file under `server/migrations`, sorts the filenames, and executes them in order. The SQL is written to be repeatable with `IF NOT EXISTS`, conditional constraint replacement, and repair updates.
-
-For stricter enterprise release governance, a future enhancement should introduce a migration ledger with checksum and applied-version tracking.
+At API startup, `server/src/repository.js` acquires a PostgreSQL advisory lock, reads every `.sql` file under `server/migrations`, and applies pending files in filename order. Each migration runs in a transaction and is recorded in `schema_migrations` with its SHA-256 checksum. A changed checksum for an already-applied migration stops startup rather than silently changing schema history.

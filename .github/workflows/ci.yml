@@ -12,6 +12,20 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: mva_ci
+          POSTGRES_USER: mva
+          POSTGRES_PASSWORD: mva_ci_only
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U mva -d mva_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -40,6 +54,11 @@ jobs:
       - name: Test API, tenant security, and local LLM contracts
         working-directory: server
         run: npm test
+
+      - name: Validate PostgreSQL migrations on a clean database
+        env:
+          DATABASE_URL: postgresql://mva:mva_ci_only@127.0.0.1:5432/mva_ci
+        run: node tools/validate_database_migrations.mjs
 
       - name: Build production frontend
         working-directory: react-ui

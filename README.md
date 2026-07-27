@@ -144,6 +144,7 @@ Production traffic should enter only through an organization-managed HTTPS rever
 - Complete build and handover: [`docs/COMPLETE_PRODUCTION_HANDOVER.md`](docs/COMPLETE_PRODUCTION_HANDOVER.md)
 - Internal deployment runbook: [`docs/DEPLOYMENT_RUNBOOK.md`](docs/DEPLOYMENT_RUNBOOK.md)
 - Validation evidence: [`docs/VALIDATION_EVIDENCE.md`](docs/VALIDATION_EVIDENCE.md)
+- PostgreSQL migration validation: [`docs/DATABASE_MIGRATION_VALIDATION.md`](docs/DATABASE_MIGRATION_VALIDATION.md)
 - Security validation report: [`docs/PLATFORM_SECURITY_VALIDATION_REPORT.md`](docs/PLATFORM_SECURITY_VALIDATION_REPORT.md)
 - Local AI PDF contract: [`docs/AI_PDF_GENERATION_PROMPT.md`](docs/AI_PDF_GENERATION_PROMPT.md)
 

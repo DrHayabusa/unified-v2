@@ -68,7 +68,11 @@ async function login() {
   if (!response.ok) throw new Error(payload.error || `Login failed with HTTP ${response.status}`);
   const cookie = response.headers.get("set-cookie")?.split(";")[0];
   assert.ok(cookie);
-  const authenticatedFetch = (url, options = {}) => fetch(url, { ...options, headers: { ...(options.headers ?? {}), Cookie: cookie } });
+  const authenticatedFetch = (url, options = {}) => {
+    const requested = new URL(url, API_URL);
+    const target = `${API_URL}${requested.pathname}${requested.search}`;
+    return fetch(target, { ...options, headers: { ...(options.headers ?? {}), Cookie: cookie } });
+  };
   return {
     csrfToken: payload.csrfToken,
     fetch: authenticatedFetch,

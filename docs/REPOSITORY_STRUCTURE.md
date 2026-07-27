@@ -93,8 +93,9 @@ The authoritative database schema history. Fastify applies these migrations in n
 | `007`-`008` | Reporting dates and asset onboarding tool |
 | `009`-`010` | Scanner evidence, threat intelligence, and asset identity |
 | `011` | OpenShift workload evidence |
+| `012` | Repair historical report-period dates affected by partial regular-expression capture |
 
-Never edit a migration that has already been applied in production. Add a new numbered migration for future schema changes.
+Fastify records applied files and SHA-256 checksums in `schema_migrations`. Never edit a migration that has already been applied in production. Add a new numbered migration for future schema changes.
 
 ## 3. Supporting Code And Automation
 

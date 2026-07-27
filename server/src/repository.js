@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -18,9 +18,47 @@ export class PostgresRepository {
   async migrate() {
     const migrationDirectory = path.resolve(ROOT, "../migrations");
     const migrationFiles = (await fs.readdir(migrationDirectory)).filter((name) => name.endsWith(".sql")).sort();
-    for (const migrationFile of migrationFiles) {
-      const sql = await fs.readFile(path.join(migrationDirectory, migrationFile), "utf8");
-      await this.pool.query(sql);
+    const client = await this.pool.connect();
+    try {
+      await client.query("SELECT pg_advisory_lock(hashtext('mva-schema-migrations'))");
+      await client.query(
+        `CREATE TABLE IF NOT EXISTS schema_migrations (
+           name text PRIMARY KEY,
+           checksum text NOT NULL,
+           applied_at timestamptz NOT NULL DEFAULT now()
+         )`,
+      );
+
+      for (const migrationFile of migrationFiles) {
+        const sql = await fs.readFile(path.join(migrationDirectory, migrationFile), "utf8");
+        const checksum = createHash("sha256").update(sql).digest("hex");
+        const existing = await client.query(
+          "SELECT checksum FROM schema_migrations WHERE name = $1",
+          [migrationFile],
+        );
+        if (existing.rowCount) {
+          if (existing.rows[0].checksum !== checksum) {
+            throw new Error(`Applied migration ${migrationFile} does not match its recorded checksum.`);
+          }
+          continue;
+        }
+
+        try {
+          await client.query("BEGIN");
+          await client.query(sql);
+          await client.query(
+            "INSERT INTO schema_migrations (name, checksum) VALUES ($1, $2)",
+            [migrationFile, checksum],
+          );
+          await client.query("COMMIT");
+        } catch (error) {
+          await client.query("ROLLBACK");
+          throw new Error(`Database migration ${migrationFile} failed: ${error.message}`, { cause: error });
+        }
+      }
+    } finally {
+      await client.query("SELECT pg_advisory_unlock(hashtext('mva-schema-migrations'))").catch(() => {});
+      client.release();
     }
   }
 
