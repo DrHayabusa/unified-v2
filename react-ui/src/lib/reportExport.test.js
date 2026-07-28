@@ -114,6 +114,10 @@ test("OpenShift workbook preserves every supplied workload and fix field", async
   assert.ok(data.getColumn(columnByHeader(data, "Image")).values.slice(2).every(Boolean));
   assert.ok(data.getColumn(columnByHeader(data, "Component")).values.slice(2).every(Boolean));
   assert.ok(data.getColumn(columnByHeader(data, "Fixable")).values.slice(2).every((value) => ["Yes", "No"].includes(value)));
+  assert.ok(data.getColumn(columnByHeader(data, "Exploit Available")).values.slice(2).every((value) => value === "Not supplied"));
+  for (const header of ["Summary", "Description", "Remediation"]) {
+    assert.ok(data.getColumn(columnByHeader(data, header)).values.slice(2).every((value) => value === "N/A"));
+  }
 });
 
 test("CrowdStrike monthly workbook keeps threat-intelligence additions browser-only", async () => {

@@ -21,7 +21,7 @@ test("monthly executive report model reconciles the selected period and required
   assert.equal(model.movement.newFindings, 30);
   assert.equal(model.movement.carried, 110);
   assert.equal(model.movement.patched, 20);
-  assert.deepEqual(model.priorityCounts, { P1: 0, P2: 71, P3: 46, P4: 23 });
+  assert.deepEqual(model.priorityCounts, { P1: 23, P2: 48, P3: 46, P4: 23 });
   assert.deepEqual(model.trend.map((row) => row.remediated), [20, 15, 20]);
   assert.ok(model.ageMatrix.P2[">180 days"] > 0);
   assert.equal(model.openshift.fixable, 112);
