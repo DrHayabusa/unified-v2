@@ -1,3 +1,5 @@
+import { buildQualysInsights } from "./vulnerabilityEngine.js";
+
 const NAVY = [20, 33, 61];
 const INK = [15, 23, 42];
 const MUTED = [100, 116, 139];
@@ -39,6 +41,10 @@ export async function createExecutiveDashboardPdfDocument({ analysis, targetPeri
   drawCover(doc, model);
   doc.addPage();
   drawExecutiveSummary(doc, model);
+  if (model.qualys) {
+    doc.addPage();
+    drawQualysPage(doc, model);
+  }
   if (model.trend.length > 1 || model.quarterlyDiscoveryTrend.length > 1) {
     doc.addPage();
     drawTrendPage(doc, model);
@@ -86,6 +92,7 @@ export function buildExecutiveReportModel(analysis, targetPeriod) {
   const ageMatrix = buildAgeMatrix(findings, reportDate);
   const sourceBreakdown = selectedSnapshot?.sourceBreakdown ?? analysis.dashboard?.sourceBreakdown ?? [];
   const openshift = analysis.dashboard?.openshiftInsights;
+  const qualys = buildQualysInsights(findings);
   return {
     sourceLabel: analysis.sourceLabel || "MVA",
     targetPeriod: targetPeriod || selectedSnapshot?.month || analysis.reportPeriod || analysis.reportMonth || "Current report",
@@ -104,6 +111,7 @@ export function buildExecutiveReportModel(analysis, targetPeriod) {
     topVulnerabilities: buildTopVulnerabilities(findings),
     sourceBreakdown,
     openshift,
+    qualys,
     generatedAt: new Date(),
   };
 }
@@ -144,6 +152,7 @@ function drawCover(doc, model) {
   doc.setTextColor(203, 213, 225);
   const sections = [
     "Executive summary",
+    ...(model.qualys ? ["Qualys rating and Datacentre analysis"] : []),
     ...(model.trend.length > 1 || model.quarterlyDiscoveryTrend.length > 1 ? ["Discovery and remediation trend"] : []),
     "Total open vulnerabilities",
     "Patch priority distribution",
@@ -177,6 +186,46 @@ function drawExecutiveSummary(doc, model) {
   if (model.movement.comparable) observations.push(`${formatNumber(model.movement.patched)} findings were no longer observed since ${model.movement.previousPeriod}.`);
   if (model.openshift) observations.push(`${formatNumber(model.openshift.fixable)} OpenShift findings have fix availability evidence; ${formatNumber(model.openshift.noFixedVersion)} have no fixed version supplied.`);
   drawNarrativeBox(doc, "Executive observations", observations, 14, 159, 268, 36);
+}
+
+function drawQualysPage(doc, model) {
+  pageHeader(doc, "Qualys Operational Analysis", `${model.sourceLabel} | ${model.targetPeriod}`);
+  const customProfile = model.sourceLabel.toLowerCase().includes("custom qualys");
+  const ratings = orderedQualysRatings(model.qualys.vendorRatings, customProfile);
+  const ratingValues = Object.fromEntries(ratings.map((row) => [row.rating, row.vulnerabilityCount]));
+  const datacentres = Object.fromEntries(model.qualys.datacentres.map((row) => [row.datacentre, row.vulnerabilityCount]));
+
+  drawKpiCard(doc, ["Open findings", model.qualys.totalOpen, "Current Qualys findings", NAVY], 14, 31, 61, 31);
+  drawKpiCard(doc, ["Repeated findings", model.qualys.repeatedFindings, "Times Detected greater than 1", SEVERITY_COLORS.High], 82, 31, 61, 31);
+  drawKpiCard(doc, ["Detection events", model.qualys.detectionEvents, "Sum of Times Detected", [2, 132, 199]], 150, 31, 61, 31);
+  drawKpiCard(
+    doc,
+    ["Datacentres", model.qualys.datacentres.filter((row) => row.datacentre !== "Not supplied").length, "Distinct supplied categories", [15, 118, 110]],
+    218,
+    31,
+    64,
+    31,
+  );
+
+  sectionTitle(doc, customProfile ? "Custom Qualys source ratings" : "Qualys source ratings", 14, 75);
+  drawHorizontalBars(doc, ratingValues, {}, 14, 83, 128, 78);
+  sectionTitle(doc, "Datacentre distribution", 154, 75);
+  drawHorizontalBars(doc, datacentres, {}, 154, 83, 128, 78);
+  drawNarrativeBox(doc, "Interpretation", [
+    customProfile
+      ? "Source ratings are retained exactly as 5 Urgent, 4 Critical, 3 Serious, 2 Medium, and 1 Minimal."
+      : "Qualys source ratings are retained separately from MVA normalized severity.",
+    "Datacentre categories are taken directly from the supplied export; blank values are reported as Not supplied.",
+    "Normalized severity continues to drive the approved exploit-aware P1-P4 priority matrix.",
+  ], 14, 169, 268, 26);
+}
+
+function orderedQualysRatings(rows = [], customProfile = false) {
+  const counts = new Map(rows.map((row) => [String(row.rating), Number(row.vulnerabilityCount) || 0]));
+  const labels = customProfile
+    ? ["5 - Urgent", "4 - Critical", "3 - Serious", "2 - Medium", "1 - Minimal"]
+    : ["5 - Critical", "4 - High", "3 - Medium", "2 - Low", "1 - Minimal"];
+  return labels.map((rating) => ({ rating, vulnerabilityCount: counts.get(rating) ?? 0 }));
 }
 
 function drawTrendPage(doc, model) {

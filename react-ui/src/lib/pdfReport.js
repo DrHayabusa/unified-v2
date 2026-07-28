@@ -1,4 +1,4 @@
-import { buildUnifiedInsights } from "./vulnerabilityEngine.js";
+import { buildQualysInsights, buildUnifiedInsights } from "./vulnerabilityEngine.js";
 import { buildCustomerValueInsights } from "./customerInsights.js";
 
 export function buildRemediationPrompt({ analysis, targetMonth }) {
@@ -25,6 +25,7 @@ export function buildRemediationPrompt({ analysis, targetMonth }) {
   const periodName = quarterly ? "Quarter" : ["adhoc", "quarterly-scan"].includes(analysis?.workflow) ? "Period" : "Month";
   const summary = buildSelectedPeriodSummary(analysis, targetMonth, periodName);
   const decisionIntelligence = buildSelectedDecisionContext(analysis, targetMonth);
+  const qualysContext = buildQualysInsights(selectedReportFindings(analysis, targetMonth));
 
   return `You are the MVA Remediation Guide generation engine. Return customer-ready Markdown only.
 
@@ -37,7 +38,7 @@ Create an industry-standard document with this exact document identity:
 
 Required structure:
 1. A clean Table of Contents.
-2. Portfolio Risk Overview with actionable counts, P1-P4 posture, multi-tool confirmation, and tool contribution when consolidated analytics are supplied.
+2. Portfolio Risk Overview with actionable counts, P1-P4 posture, multi-tool confirmation, and tool contribution when consolidated analytics are supplied. When Qualys context is supplied, visibly include the complete source-rating distribution and Datacentre distribution.
 3. Trend Analysis with total open, new, patched, P1-P4, findings confirmed by multiple tools, and findings reported by one tool when historical analytics are supplied.
 4. Remediation Actions ordered P1, P2, P3, then P4.
 5. Group repeated findings by CVE or vulnerability name. For every action include affected finding count, example assets, CVE, severity, patch priority, reference links, prerequisites, numbered remediation steps, command examples, rollback, and validation.
@@ -55,6 +56,9 @@ ${JSON.stringify(portfolio, null, 2)}
 Decision intelligence for prioritization and remediation grouping:
 ${JSON.stringify(decisionIntelligence, null, 2)}
 
+Qualys operational context:
+${JSON.stringify(qualysContext, null, 2)}
+
 Prioritized normalized findings:
 ${JSON.stringify(findings, null, 2)}
 `;
@@ -65,6 +69,7 @@ export function buildTemplateMarkdown({ analysis, targetMonth }) {
   const dashboard = analysis?.dashboard ?? {};
   const comparison = isComparisonWorkflow(analysis);
   const portfolio = buildPortfolioContext(analysis, targetMonth);
+  const qualysContext = buildQualysInsights(selectedReportFindings(analysis, targetMonth));
   const periodName = analysis?.workflow === "quarterly" ? "Quarter" : ["adhoc", "quarterly-scan"].includes(analysis?.workflow) ? "Period" : "Month";
   const total = selectedReportFindings(analysis, targetMonth).reduce((sum, finding) => sum + (Number(finding.recordCount) || 1), 0)
     || (comparison ? dashboard.totalOpenVulnerabilities?.totalOpen : dashboard.totalVulnerabilities);
@@ -129,6 +134,24 @@ export function buildTemplateMarkdown({ analysis, targetMonth }) {
       );
     }
   }
+  if (qualysContext) {
+    const customProfile = String(analysis?.sourceLabel).toLowerCase().includes("custom qualys");
+    const ratings = orderedQualysRatings(qualysContext.vendorRatings, customProfile);
+    lines.push(
+      "",
+      `### ${customProfile ? "Custom Qualys Rating Distribution" : "Qualys Vendor Rating Distribution"}`,
+      "",
+      "| Source Rating | Open Findings |",
+      "| --- | ---: |",
+      ...ratings.map((row) => `| ${row.rating} | ${row.vulnerabilityCount} |`),
+      "",
+      "### Datacentre Distribution",
+      "",
+      "| Datacentre | Open Findings |",
+      "| --- | ---: |",
+      ...qualysContext.datacentres.map((row) => `| ${markdownTableText(row.datacentre)} | ${row.vulnerabilityCount} |`),
+    );
+  }
   if (hasTrend) {
     lines.push(
       "",
@@ -181,6 +204,14 @@ export function buildTemplateMarkdown({ analysis, targetMonth }) {
     ...[...new Set(groups.flatMap((group) => group.links))].map((link) => `- ${link}`),
   );
   return lines.join("\n");
+}
+
+function orderedQualysRatings(rows = [], customProfile = false) {
+  const counts = new Map(rows.map((row) => [String(row.rating), Number(row.vulnerabilityCount) || 0]));
+  const labels = customProfile
+    ? ["5 - Urgent", "4 - Critical", "3 - Serious", "2 - Medium", "1 - Minimal"]
+    : ["5 - Critical", "4 - High", "3 - Medium", "2 - Low", "1 - Minimal"];
+  return labels.map((rating) => ({ rating, vulnerabilityCount: counts.get(rating) ?? 0 }));
 }
 
 export async function downloadRemediationPdf({ markdown, sourceLabel, targetMonth, workflow = "monthly" }) {

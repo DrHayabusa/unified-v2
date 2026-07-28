@@ -67,6 +67,36 @@ test("Qualys Adhoc workbook explains dates absent from the source export", async
   }
 });
 
+test("Custom Qualys reports display all five source ratings and Datacentre categorization", async () => {
+  const filePath = path.join(root, "samples/custom_qualys_100_row/custom_qualys_adhoc_july_2026.csv");
+  const analysis = await analyzeAdhocFiles([await fakeFile(filePath)], "custom-qualys");
+  const workbook = await buildAnalysisWorkbook(analysis);
+  const qualys = workbook.getWorksheet("Qualys Analysis");
+  const reportData = workbook.getWorksheet("Report Data");
+  const sheetText = qualys.getSheetValues().flat(3).filter(Boolean).join(" | ");
+  const markdown = buildTemplateMarkdown({ analysis, targetMonth: analysis.reportMonth });
+  const prompt = buildRemediationPrompt({ analysis, targetMonth: analysis.reportMonth });
+
+  assert.ok(qualys);
+  assert.match(sheetText, /Custom Qualys Operational Analysis/);
+  assert.match(sheetText, /Datacentre Distribution/);
+  for (const label of ["5 - Urgent", "4 - Critical", "3 - Serious", "2 - Medium", "1 - Minimal"]) {
+    assert.match(sheetText, new RegExp(label));
+    assert.match(markdown, new RegExp(label));
+  }
+  for (const datacentre of analysis.dashboard.qualysInsights.datacentres.map((row) => row.datacentre)) {
+    assert.match(sheetText, new RegExp(datacentre));
+    assert.match(markdown, new RegExp(datacentre));
+  }
+  assert.equal(qualys.getImages().length, 2);
+  assert.equal(qualys.pageSetup.printArea, "A1:L40");
+  assert.match(workbook.getWorksheet("Cover Page").getSheetValues().flat(3).filter(Boolean).join(" | "), /Qualys Operational Analysis/);
+  assert.ok(columnByHeader(reportData, "Datacentre") > 0);
+  assert.ok(columnByHeader(reportData, "Vendor Severity Rating") > 0);
+  assert.match(prompt, /complete source-rating distribution and Datacentre distribution/);
+  assert.match(prompt, /"rating": "5 - Urgent"/);
+});
+
 test("OpenShift workbook preserves every supplied workload and fix field", async () => {
   const filePath = path.join(root, "samples/openshift_100_row/openshift_july_2026_100plus.csv");
   const analysis = await analyzeAdhocFiles([await fakeFile(filePath)], "openshift");

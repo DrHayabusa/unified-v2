@@ -74,6 +74,7 @@ export async function buildAnalysisWorkbook(analysis) {
   await buildCoverSheet(workbook, analysis);
   await buildExecutiveDashboardSheet(workbook, analysis);
   if (analysis.dashboard?.unifiedInsights) await buildUnifiedDashboardSheet(workbook, analysis);
+  if (analysis.dashboard?.qualysInsights) await buildQualysAnalysisSheet(workbook, analysis);
   if (isComparisonWorkflow(analysis)) await buildMonthlySheet(workbook, analysis);
   else await buildAdhocSheet(workbook, analysis);
   buildBriefingSheet(workbook, analysis);
@@ -132,16 +133,18 @@ async function buildCoverSheet(workbook, analysis) {
   contentsHeading.font = { name: "Aptos", bold: true, size: 10, color: { argb: "FFFCA5A5" } };
   contentsHeading.alignment = { vertical: "middle" };
 
-  const targets = [
-    ["01", "Executive Dashboard", "Executive Dashboard"],
-    ...(analysis.dashboard?.unifiedInsights ? [["02", "Consolidated Analysis", "Unified Dashboard"]] : []),
-    [analysis.dashboard?.unifiedInsights ? "03" : "02", isComparisonWorkflow(analysis) ? `${analysis.workflow === "quarterly" ? "Quarterly" : "Monthly"} Report` : analysis.workflow === "quarterly-scan" ? "Quarterly Report" : "Adhoc Report", reportSheetName(analysis)],
-    [analysis.dashboard?.unifiedInsights ? "04" : "03", "Briefing", "Briefing"],
-    [analysis.dashboard?.unifiedInsights ? "05" : "04", "Top Vulnerable Assets", "Top Vulnerable Assets"],
-    [analysis.dashboard?.unifiedInsights ? "06" : "05", "Top Vulnerabilities", "Top Vulnerabilities"],
-    [analysis.dashboard?.unifiedInsights ? "07" : "06", "Normalized Report Data", "Report Data"],
-    ...((analysis.sourceIds?.length ?? analysis.inputSummary?.sourceCount ?? 0) > 1 ? [["08", "Source Audit", "Source Audit"]] : []),
+  const contents = [
+    ["Executive Dashboard", "Executive Dashboard"],
+    ...(analysis.dashboard?.unifiedInsights ? [["Consolidated Analysis", "Unified Dashboard"]] : []),
+    ...(analysis.dashboard?.qualysInsights ? [["Qualys Operational Analysis", "Qualys Analysis"]] : []),
+    [isComparisonWorkflow(analysis) ? `${analysis.workflow === "quarterly" ? "Quarterly" : "Monthly"} Report` : analysis.workflow === "quarterly-scan" ? "Quarterly Report" : "Adhoc Report", reportSheetName(analysis)],
+    ["Briefing", "Briefing"],
+    ["Top Vulnerable Assets", "Top Vulnerable Assets"],
+    ["Top Vulnerabilities", "Top Vulnerabilities"],
+    ["Normalized Report Data", "Report Data"],
+    ...((analysis.sourceIds?.length ?? analysis.inputSummary?.sourceCount ?? 0) > 1 ? [["Source Audit", "Source Audit"]] : []),
   ];
+  const targets = contents.map(([label, sheetName], index) => [String(index + 1).padStart(2, "0"), label, sheetName]);
   targets.forEach(([number, label], index) => {
     const row = 16 + index * 2;
     sheet.mergeCells(row, 1, row, 2);
@@ -217,6 +220,87 @@ async function buildExecutiveDashboardSheet(workbook, analysis) {
     cell.fill = solid(index % 2 === 0 ? "F8FAFC" : "F1F5F9");
     cell.alignment = { vertical: "middle", wrapText: true };
   });
+}
+
+async function buildQualysAnalysisSheet(workbook, analysis) {
+  const insights = analysis.dashboard.qualysInsights;
+  const customProfile = String(analysis.sourceLabel).toLowerCase().includes("custom qualys");
+  const ratings = orderedQualysRatings(insights.vendorRatings, customProfile);
+  const datacentres = insights.datacentres ?? [];
+  const statuses = insights.statuses ?? [];
+  const sheet = workbook.addWorksheet("Qualys Analysis", {
+    properties: { tabColor: { argb: `FF${COLORS.high}` } },
+    views: [{ state: "frozen", ySplit: 3, showGridLines: false }],
+  });
+  prepareSheet(sheet, 12);
+  sheet.pageSetup = {
+    orientation: "landscape",
+    paperSize: 9,
+    fitToPage: true,
+    fitToWidth: 1,
+    fitToHeight: 1,
+    printArea: "A1:L40",
+    margins: { left: 0.2, right: 0.2, top: 0.35, bottom: 0.35, header: 0.15, footer: 0.15 },
+  };
+  title(
+    sheet,
+    customProfile ? "Custom Qualys Operational Analysis" : "Qualys Operational Analysis",
+    `${reportPeriodLabel(analysis)} | Source-native categorization`,
+    12,
+  );
+  kpi(sheet, "A4:C7", "OPEN FINDINGS", insights.totalOpen, "Current Qualys findings", COLORS.navy);
+  kpi(sheet, "D4:F7", "REPEATED FINDINGS", insights.repeatedFindings, "Times Detected greater than 1", COLORS.high);
+  kpi(sheet, "G4:I7", "DETECTION EVENTS", insights.detectionEvents, "Sum of Times Detected", "0284C7");
+  kpi(
+    sheet,
+    "J4:L7",
+    "DATACENTRES",
+    datacentres.filter((row) => row.datacentre !== "Not supplied").length,
+    "Distinct supplied categories",
+    COLORS.teal,
+  );
+
+  section(sheet, "A9:F9", "Datacentre Distribution");
+  writeTable(sheet, 10, 1, ["Datacentre", "Open Findings"], datacentres.map((row) => [row.datacentre, row.vulnerabilityCount]));
+  section(sheet, "G9:L9", customProfile ? "Custom Qualys Rating Distribution" : "Qualys Vendor Rating Distribution");
+  writeTable(sheet, 10, 7, ["Source Rating", "Open Findings"], ratings.map((row) => [row.rating, row.vulnerabilityCount]));
+
+  await addBarChartImage(
+    workbook,
+    sheet,
+    datacentres.slice(0, 8).map((row) => ({ label: row.datacentre, value: row.vulnerabilityCount, color: "#0284C7" })),
+    "Open Findings by Datacentre",
+    { col: 0.3, row: 18, width: 560, height: 220 },
+  );
+  await addBarChartImage(
+    workbook,
+    sheet,
+    ratings.map((row) => ({ label: row.rating, value: row.vulnerabilityCount, color: qualysRatingColor(row.rating) })),
+    customProfile ? "5 Urgent / 4 Critical / 3 Serious / 2 Medium / 1 Minimal" : "Open Findings by Qualys Rating",
+    { col: 6.2, row: 18, width: 560, height: 220 },
+  );
+
+  section(sheet, "A31:L31", "Vulnerability Lifecycle Status");
+  writeTable(sheet, 32, 1, ["Vulnerability Status", "Open Findings"], statuses.map((row) => [row.status, row.vulnerabilityCount]));
+  sheet.getColumn(1).width = 24;
+  sheet.getColumn(2).width = 16;
+  sheet.getColumn(7).width = 28;
+  sheet.getColumn(8).width = 16;
+}
+
+function orderedQualysRatings(rows = [], customProfile = false) {
+  const counts = new Map(rows.map((row) => [String(row.rating), Number(row.vulnerabilityCount) || 0]));
+  const labels = customProfile
+    ? ["5 - Urgent", "4 - Critical", "3 - Serious", "2 - Medium", "1 - Minimal"]
+    : ["5 - Critical", "4 - High", "3 - Medium", "2 - Low", "1 - Minimal"];
+  return labels.map((rating) => ({ rating, vulnerabilityCount: counts.get(rating) ?? 0 }));
+}
+
+function qualysRatingColor(label) {
+  if (label.startsWith("5 -") || label.startsWith("4 - Critical")) return `#${COLORS.critical}`;
+  if (label.startsWith("4 -") || label.startsWith("3 - Serious")) return `#${COLORS.high}`;
+  if (label.startsWith("3 -") || label.startsWith("2 - Medium")) return `#${COLORS.medium}`;
+  return `#${COLORS.low}`;
 }
 
 function buildBriefingSheet(workbook, analysis) {

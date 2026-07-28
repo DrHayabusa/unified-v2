@@ -47,6 +47,20 @@ test("ad hoc executive report remains valid without invented historical movement
   assert.ok(pdf.getNumberOfPages() >= 6);
 });
 
+test("Custom Qualys executive PDF includes source ratings and Datacentre analysis", async () => {
+  const file = await localFile(path.join(root, "samples/custom_qualys_100_row/custom_qualys_adhoc_july_2026.csv"));
+  const analysis = await analyzeAdhocFiles([file], "custom-qualys");
+  const model = buildExecutiveReportModel(analysis, analysis.reportMonth);
+
+  assert.deepEqual(
+    model.qualys.vendorRatings.map((row) => row.rating).sort(),
+    ["1 - Minimal", "2 - Medium", "3 - Serious", "4 - Critical", "5 - Urgent"],
+  );
+  assert.ok(model.qualys.datacentres.length > 1);
+  const pdf = await createExecutiveDashboardPdfDocument({ analysis, targetPeriod: analysis.reportMonth });
+  assert.ok(pdf.getNumberOfPages() >= 7);
+});
+
 async function localFile(filePath) {
   const content = await readFile(filePath);
   return {
