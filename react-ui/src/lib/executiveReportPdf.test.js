@@ -42,9 +42,10 @@ test("ad hoc executive report remains valid without invented historical movement
   assert.equal(model.movement.newFindings, 0);
   assert.equal(model.movement.patched, 0);
   assert.equal(model.movement.carried, model.totalOpen);
+  assert.ok(model.adhocLineSeries.points.length >= 3);
 
   const pdf = await createExecutiveDashboardPdfDocument({ analysis, targetPeriod: analysis.reportMonth });
-  assert.ok(pdf.getNumberOfPages() >= 6);
+  assert.ok(pdf.getNumberOfPages() >= 7);
 });
 
 test("Custom Qualys executive PDF includes source ratings and Datacentre analysis", async () => {
@@ -57,8 +58,9 @@ test("Custom Qualys executive PDF includes source ratings and Datacentre analysi
     ["1 - Minimal", "2 - Medium", "3 - Serious", "4 - Critical", "5 - Urgent"],
   );
   assert.ok(model.qualys.datacentres.length > 1);
+  assert.ok(model.adhocLineSeries.points.length >= 3);
   const pdf = await createExecutiveDashboardPdfDocument({ analysis, targetPeriod: analysis.reportMonth });
-  assert.ok(pdf.getNumberOfPages() >= 7);
+  assert.ok(pdf.getNumberOfPages() >= 8);
 });
 
 async function localFile(filePath) {

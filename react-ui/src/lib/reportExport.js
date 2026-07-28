@@ -637,7 +637,7 @@ async function buildAdhocSheet(workbook, analysis) {
     fitToWidth: 1,
     fitToHeight: 1,
     horizontalCentered: true,
-    printArea: quarterly ? "A1:L50" : "A1:L31",
+    printArea: "A1:L50",
     margins: { left: 0.2, right: 0.2, top: 0.35, bottom: 0.35, header: 0.15, footer: 0.15 },
   };
   title(sheet, `${reportSourceLabel(analysis.sourceLabel)} ${quarterly ? "Quarterly 3-Month" : "Adhoc"} Vulnerability Report`, `${quarterly ? `${analysis.reportPeriod} | ` : ""}${analysis.exportType} | ${analysis.fileName}`, 12);
@@ -657,17 +657,21 @@ async function buildAdhocSheet(workbook, analysis) {
   section(sheet, "G19:L19", "Affected Asset Concentration");
   writeAssetConcentration(sheet, 20, affectedAssets, COLORS.critical);
 
-  if (quarterly) {
-    section(sheet, "A32:L32", "Vulnerabilities Discovered - Last 3 Months");
-    await addLineChartImage(
-      workbook,
-      sheet,
-      dashboard.quarterlyDiscoveryTrend.map((row) => ({ label: row.month, value: row.discoveredCount })),
-      "Vulnerabilities Discovered - Last 3 Months",
-      "#DC2626",
-      { col: 0.5, row: 32.5, width: 720, height: 288 },
-    );
-  }
+  const lineSeries = quarterly
+    ? {
+      title: "Vulnerabilities Discovered - Last 3 Months",
+      points: dashboard.quarterlyDiscoveryTrend.map((row) => ({ label: row.month, value: row.discoveredCount })),
+    }
+    : dashboard.adhocLineSeries;
+  section(sheet, "A32:L32", lineSeries.title);
+  await addLineChartImage(
+    workbook,
+    sheet,
+    lineSeries.points,
+    lineSeries.title,
+    "#DC2626",
+    { col: 0.5, row: 32.5, width: 720, height: 288 },
+  );
 }
 
 function buildFindingsSheet(workbook, findings) {

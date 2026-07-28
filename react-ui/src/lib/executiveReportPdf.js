@@ -45,7 +45,7 @@ export async function createExecutiveDashboardPdfDocument({ analysis, targetPeri
     doc.addPage();
     drawQualysPage(doc, model);
   }
-  if (model.trend.length > 1 || model.quarterlyDiscoveryTrend.length > 1) {
+  if (model.trend.length > 1 || model.quarterlyDiscoveryTrend.length > 1 || model.adhocLineSeries?.points?.length > 1) {
     doc.addPage();
     drawTrendPage(doc, model);
   }
@@ -89,6 +89,7 @@ export function buildExecutiveReportModel(analysis, targetPeriod) {
     })
     : [];
   const quarterlyDiscoveryTrend = analysis.dashboard?.quarterlyDiscoveryTrend ?? [];
+  const adhocLineSeries = analysis.dashboard?.adhocLineSeries ?? null;
   const ageMatrix = buildAgeMatrix(findings, reportDate);
   const sourceBreakdown = selectedSnapshot?.sourceBreakdown ?? analysis.dashboard?.sourceBreakdown ?? [];
   const openshift = analysis.dashboard?.openshiftInsights;
@@ -107,6 +108,7 @@ export function buildExecutiveReportModel(analysis, targetPeriod) {
     movement,
     trend,
     quarterlyDiscoveryTrend,
+    adhocLineSeries,
     topAssets: buildTopAssets(findings),
     topVulnerabilities: buildTopVulnerabilities(findings),
     sourceBreakdown,
@@ -153,7 +155,7 @@ function drawCover(doc, model) {
   const sections = [
     "Executive summary",
     ...(model.qualys ? ["Qualys rating and Datacentre analysis"] : []),
-    ...(model.trend.length > 1 || model.quarterlyDiscoveryTrend.length > 1 ? ["Discovery and remediation trend"] : []),
+    ...(model.trend.length > 1 || model.quarterlyDiscoveryTrend.length > 1 || model.adhocLineSeries?.points?.length > 1 ? ["Vulnerability line chart"] : []),
     "Total open vulnerabilities",
     "Patch priority distribution",
     "Age and patch priority",
@@ -229,19 +231,39 @@ function orderedQualysRatings(rows = [], customProfile = false) {
 }
 
 function drawTrendPage(doc, model) {
-  pageHeader(doc, "Vulnerability Trend", "Discovered and remediated findings - latest three reporting periods");
-  const trend = model.trend.length > 1
-    ? model.trend
-    : model.quarterlyDiscoveryTrend.map((row) => ({ period: row.month, discovered: row.discoveredCount, remediated: 0, totalOpen: 0 }));
-  sectionTitle(doc, "Vulnerabilities discovered", 14, 33);
-  drawLineChart(doc, trend, "discovered", [220, 38, 38], 14, 42, 128, 94);
-  sectionTitle(doc, "Vulnerabilities remediated", 154, 33);
-  drawLineChart(doc, trend, "remediated", [22, 163, 74], 154, 42, 128, 94);
-  drawNarrativeBox(doc, "Calculation", [
-    "Discovered: findings whose First Discovered date falls in the reporting period.",
-    "Remediated: findings present in the previous report and absent from the current report.",
-    "A missing historical file is not treated as remediation evidence.",
-  ], 14, 148, 268, 42);
+  if (model.trend.length > 1) {
+    pageHeader(doc, "Vulnerability Trend", "Discovered and remediated findings - latest three reporting periods");
+    sectionTitle(doc, "Vulnerabilities discovered", 14, 33);
+    drawLineChart(doc, model.trend, "discovered", [220, 38, 38], 14, 42, 128, 94);
+    sectionTitle(doc, "Vulnerabilities remediated", 154, 33);
+    drawLineChart(doc, model.trend, "remediated", [22, 163, 74], 154, 42, 128, 94);
+    drawNarrativeBox(doc, "Calculation", [
+      "Discovered: findings whose First Discovered date falls in the reporting period.",
+      "Remediated: findings present in the previous report and absent from the current report.",
+      "A missing historical file is not treated as remediation evidence.",
+    ], 14, 148, 268, 42);
+    return;
+  }
+
+  const datedTrend = model.quarterlyDiscoveryTrend.length > 1
+    ? model.quarterlyDiscoveryTrend.map((row) => ({ period: row.month, value: row.discoveredCount }))
+    : null;
+  const sourceSeries = datedTrend ?? model.adhocLineSeries?.points?.map((point) => ({ period: point.label, value: point.value })) ?? [];
+  const title = datedTrend || model.adhocLineSeries?.basis === "first-discovered"
+    ? "Vulnerabilities Discovered - Last 3 Months"
+    : "Current Open Findings by Severity";
+  pageHeader(doc, "Vulnerability Line Chart", title);
+  sectionTitle(doc, title, 14, 33);
+  drawLineChart(doc, sourceSeries, "value", [220, 38, 38], 14, 42, 268, 104);
+  drawNarrativeBox(doc, "Calculation", datedTrend || model.adhocLineSeries?.basis === "first-discovered"
+    ? [
+      "Each point counts findings whose First Discovered date falls in that month.",
+      "This is discovery movement derived from the current export; it does not claim that absent findings were remediated.",
+    ]
+    : [
+      "The source export does not provide sufficient dated history for a time trend.",
+      "The line therefore displays the current Critical, High, Medium, and Low finding profile without inventing historical values.",
+    ], 14, 158, 268, 32);
 }
 
 function drawOpenPage(doc, model) {

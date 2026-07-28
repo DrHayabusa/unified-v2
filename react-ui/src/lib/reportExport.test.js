@@ -37,7 +37,9 @@ test("every scanner produces a populated source-neutral Adhoc workbook", async (
     const dashboardText = dashboard.getSheetValues().flat(3).filter(Boolean).join(" | ");
     assert.match(dashboardText, /Top 10 Affected Assets/, sourceId);
     assert.match(dashboardText, /Affected Asset Concentration/, sourceId);
+    assert.match(dashboardText, /Vulnerabilities Discovered - Last 3 Months|Current Open Findings by Severity/, sourceId);
     assert.doesNotMatch(dashboardText, /Top Products/, sourceId);
+    assert.ok(dashboard.getImages().length >= 1, `${sourceId}: universal line chart`);
     assert.equal(dashboard.getCell("A21").value, analysis.dashboard.top10AffectedAssets[0].asset, `${sourceId}: full asset label`);
     assert.equal(dashboard.getCell("F21").value, analysis.dashboard.top10AffectedAssets[0].vulnerabilityCount, `${sourceId}: asset count`);
     assert.equal(dashboard.getCell("G21").value, analysis.dashboard.top10AffectedAssets[0].asset, `${sourceId}: concentration label`);
@@ -95,6 +97,7 @@ test("Custom Qualys reports display all five source ratings and Datacentre categ
   assert.ok(columnByHeader(reportData, "Vendor Severity Rating") > 0);
   assert.match(prompt, /complete source-rating distribution and Datacentre distribution/);
   assert.match(prompt, /"rating": "5 - Urgent"/);
+  assert.equal(workbook.getWorksheet("Adhoc Report").getImages().length, 1);
 });
 
 test("OpenShift workbook preserves every supplied workload and fix field", async () => {

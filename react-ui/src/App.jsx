@@ -13,7 +13,7 @@ import { MonthlyComparison } from "./components/MonthlyComparison.jsx";
 import { OperationMode } from "./components/OperationMode.jsx";
 import { OpenShiftInsights } from "./components/OpenShiftInsights.jsx";
 import { PriorityMatrix } from "./components/PriorityMatrix.jsx";
-import { QuarterlyTrendPanel } from "./components/QuarterlyTrendPanel.jsx";
+import { AnalysisLineChart } from "./components/AnalysisLineChart.jsx";
 import { RemediationQueue } from "./components/RemediationQueue.jsx";
 import { Sidebar } from "./components/Sidebar.jsx";
 import { SourceChoice } from "./components/SourceChoice.jsx";
@@ -256,6 +256,7 @@ export default function App() {
                         <CrowdStrikeInsights insights={adhocAnalysis.dashboard.crowdstrikeInsights} />
                         <OpenShiftInsights insights={adhocAnalysis.dashboard.openshiftInsights} />
                         <PersistencePanel analysis={adhocAnalysis} />
+                        <AnalysisLineChart dashboard={adhocAnalysis.dashboard} />
                         <TrendPanel dashboard={adhocAnalysis.dashboard} />
                         <div className="grid gap-5 xl:grid-cols-[1fr_1fr] 2xl:grid-cols-[1.1fr_1fr]">
                           <FieldMappingPanel source={selectedSource} exportType={adhocAnalysis.exportType} />
@@ -301,7 +302,7 @@ export default function App() {
                         <CrowdStrikeInsights insights={quarterlyAnalysis.dashboard.crowdstrikeInsights} />
                         <OpenShiftInsights insights={quarterlyAnalysis.dashboard.openshiftInsights} />
                         <PersistencePanel analysis={quarterlyAnalysis} />
-                        <QuarterlyTrendPanel dashboard={quarterlyAnalysis.dashboard} />
+                        <AnalysisLineChart dashboard={quarterlyAnalysis.dashboard} />
                         <TrendPanel dashboard={quarterlyAnalysis.dashboard} />
                         <div className="grid gap-5 xl:grid-cols-[1fr_1fr] 2xl:grid-cols-[1.1fr_1fr]">
                           <FieldMappingPanel source={selectedSource} exportType={quarterlyAnalysis.exportType} />
