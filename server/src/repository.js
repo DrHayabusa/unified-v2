@@ -134,7 +134,7 @@ export class PostgresRepository {
       await client.query(
         `INSERT INTO finding_observations (
            scan_run_id, row_index, report_period, report_period_date, finding_key, source_tool, source_tools, source_display,
-           source_vulnerability_id, ip_address, dns_name, vulnerability_name, cve, severity,
+           source_vulnerability_id, asset_key, ip_address, dns_name, vulnerability_name, cve, severity,
            exploit_available, exploit_signal, epss_score, patch_priority, asset_exposure,
            vulnerability_finding, summary, description, remediation, kb_links, platform_details,
            first_discovered, last_observed, vulnerability_age_days, protocol, port, record_count,
@@ -154,6 +154,7 @@ export class PostgresRepository {
            ARRAY(SELECT jsonb_array_elements_text(item->'sourceTools')),
            item->>'sourceDisplay',
            item->>'sourceVulnerabilityId',
+           item->>'assetKey',
            item->>'ipAddress',
            item->>'dnsName',
            item->>'vulnerabilityName',
@@ -894,7 +895,7 @@ export class PostgresRepository {
          internet_exposed, origin, in_scope, first_seen_at, last_seen_at
        )
        SELECT $1::uuid,
-              lower(COALESCE(NULLIF(trim(ip_address), ''), NULLIF(trim(dns_name), ''))) AS asset_key,
+              lower(COALESCE(NULLIF(trim(ip_address), ''), NULLIF(trim(dns_name), ''), NULLIF(trim(asset_key), ''))) AS asset_key,
               max(ip_address), max(dns_name), max(dns_name),
               CASE
                 WHEN lower(max(platform_details)) ~ '(router|switch|wireless|network|load balancer)' THEN 'Network Device'
@@ -921,8 +922,8 @@ export class PostgresRepository {
               COALESCE(max(last_observed)::timestamptz, now())
        FROM finding_observations
        WHERE scan_run_id = $2
-         AND COALESCE(NULLIF(trim(ip_address), ''), NULLIF(trim(dns_name), '')) IS NOT NULL
-       GROUP BY lower(COALESCE(NULLIF(trim(ip_address), ''), NULLIF(trim(dns_name), '')))
+         AND COALESCE(NULLIF(trim(ip_address), ''), NULLIF(trim(dns_name), ''), NULLIF(trim(asset_key), '')) IS NOT NULL
+       GROUP BY lower(COALESCE(NULLIF(trim(ip_address), ''), NULLIF(trim(dns_name), ''), NULLIF(trim(asset_key), '')))
        ON CONFLICT (customer_id, asset_key) DO UPDATE SET
          ip_address = COALESCE(NULLIF(EXCLUDED.ip_address, ''), customer_assets.ip_address),
          dns_name = COALESCE(NULLIF(EXCLUDED.dns_name, ''), customer_assets.dns_name),
@@ -1027,10 +1028,19 @@ export class PostgresRepository {
     const currentWhere = `finding.scan_run_id = $2 AND ($3::date IS NULL OR finding.report_period_date = $3::date) AND ${currentScope}`;
     const metrics = await this.pool.query(
       `SELECT COALESCE(sum(finding.record_count), 0)::bigint AS total_open,
-              count(DISTINCT lower(COALESCE(NULLIF(finding.dns_name, ''), NULLIF(finding.ip_address, ''))))::integer AS affected_assets,
+              count(DISTINCT matched_asset.id)::integer AS affected_assets,
               COALESCE(sum(finding.record_count) FILTER (WHERE finding.patch_priority IN ('P1', 'P2')), 0)::bigint AS immediate_patch,
               COALESCE(sum(finding.record_count) FILTER (WHERE finding.exploit_available), 0)::bigint AS exploitable
        FROM finding_observations finding
+       JOIN LATERAL (
+         SELECT inventory_asset.id
+         FROM customer_assets inventory_asset
+         WHERE inventory_asset.customer_id = $1
+           AND inventory_asset.in_scope
+           AND ${findingAssetMatchSql("finding", "inventory_asset")}
+         ORDER BY inventory_asset.origin = 'manual' DESC, inventory_asset.updated_at DESC
+         LIMIT 1
+       ) matched_asset ON true
        WHERE ${currentWhere}`,
       [customerId, latestRun.id, currentDate, assetTypes, teamId, assetId],
     );
@@ -1047,52 +1057,76 @@ export class PostgresRepository {
     );
     const lifecycle = await this.pool.query(
       `WITH current_set AS (
-         SELECT finding.finding_key, sum(finding.record_count)::bigint AS count,
+         SELECT ${canonicalLifecycleKeySql("finding")} AS lifecycle_key,
+                sum(finding.record_count)::bigint AS count,
+                min(finding.first_discovered) AS first_discovered,
                 max(finding.vulnerability_name) AS vulnerability_name, max(finding.cve) AS cve,
                 max(finding.patch_priority) AS patch_priority
          FROM finding_observations finding
          WHERE finding.scan_run_id = $2
            AND ($3::date IS NULL OR finding.report_period_date = $3::date)
            AND ${baseScope} AND ${assetTypeScopeSql("finding", "$6")} AND ${teamScopeSql("finding", "$7")} AND ${assetScopeSql("finding", "$8")}
-         GROUP BY finding.finding_key
+         GROUP BY ${canonicalLifecycleKeySql("finding")}
        ), previous_set AS (
-         SELECT finding.finding_key, sum(finding.record_count)::bigint AS count,
+         SELECT ${canonicalLifecycleKeySql("finding")} AS lifecycle_key,
+                sum(finding.record_count)::bigint AS count,
                 max(finding.vulnerability_name) AS vulnerability_name, max(finding.cve) AS cve,
                 max(finding.patch_priority) AS patch_priority
          FROM finding_observations finding
          WHERE $4::uuid IS NOT NULL AND finding.scan_run_id = $4
            AND ($5::date IS NULL OR finding.report_period_date = $5::date)
            AND ${baseScope} AND ${assetTypeScopeSql("finding", "$6")} AND ${teamScopeSql("finding", "$7")} AND ${assetScopeSql("finding", "$8")}
-         GROUP BY finding.finding_key
+         GROUP BY ${canonicalLifecycleKeySql("finding")}
        )
-       SELECT CASE WHEN $4::uuid IS NULL THEN 0 ELSE COALESCE(sum(current_set.count) FILTER (WHERE previous_set.finding_key IS NULL), 0) END::bigint AS new_count,
-              CASE WHEN $4::uuid IS NULL THEN 0 ELSE COALESCE(sum(previous_set.count) FILTER (WHERE current_set.finding_key IS NULL), 0) END::bigint AS fixed_count,
-              CASE WHEN $4::uuid IS NULL THEN 0 ELSE COALESCE(sum(current_set.count) FILTER (WHERE previous_set.finding_key IS NOT NULL), 0) END::bigint AS repeated_count
-       FROM current_set FULL OUTER JOIN previous_set USING (finding_key)`,
-      [customerId, latestRun.id, currentDate, previousRunId, previousDate, assetTypes, teamId, assetId],
+       SELECT COALESCE(sum(current_set.count) FILTER (
+                WHERE current_set.first_discovered >= CASE
+                    WHEN $9::text IN ('quarterly', 'quarterly-scan') THEN date_trunc('quarter', $3::date)
+                    ELSE date_trunc('month', $3::date)
+                  END
+                  AND current_set.first_discovered < CASE
+                    WHEN $9::text IN ('quarterly', 'quarterly-scan') THEN date_trunc('quarter', $3::date) + interval '3 months'
+                    ELSE date_trunc('month', $3::date) + interval '1 month'
+                  END
+              ), 0)::bigint AS new_count,
+              CASE WHEN $4::uuid IS NULL THEN 0 ELSE COALESCE(sum(previous_set.count) FILTER (WHERE current_set.lifecycle_key IS NULL), 0) END::bigint AS fixed_count,
+              CASE WHEN $4::uuid IS NULL THEN 0 ELSE COALESCE(sum(current_set.count) FILTER (WHERE previous_set.lifecycle_key IS NOT NULL), 0) END::bigint AS repeated_count
+       FROM current_set FULL OUTER JOIN previous_set USING (lifecycle_key)`,
+      [customerId, latestRun.id, currentDate, previousRunId, previousDate, assetTypes, teamId, assetId, latestRun.workflow],
     );
     const age = await this.pool.query(
-      `SELECT finding.patch_priority,
-              CASE WHEN COALESCE(finding.vulnerability_age_days, 0) <= 7 THEN '0-7 days'
-                   WHEN finding.vulnerability_age_days <= 30 THEN '8-30 days'
-                   WHEN finding.vulnerability_age_days <= 60 THEN '31-60 days'
-                   WHEN finding.vulnerability_age_days <= 180 THEN '61-180 days'
-                   ELSE 'Over 180 days' END AS age_bucket,
-              sum(finding.record_count)::bigint AS count
+      `SELECT finding.patch_priority, threshold.age_bucket,
+              COALESCE(sum(finding.record_count) FILTER (
+                WHERE finding.vulnerability_age_days > threshold.minimum_days
+              ), 0)::bigint AS count
        FROM finding_observations finding
+       CROSS JOIN (VALUES
+         ('>7 days', 7),
+         ('>30 days', 30),
+         ('>60 days', 60),
+         ('>180 days (6+ months)', 180)
+       ) AS threshold(age_bucket, minimum_days)
        WHERE ${currentWhere}
-       GROUP BY finding.patch_priority, age_bucket`,
+       GROUP BY finding.patch_priority, threshold.age_bucket, threshold.minimum_days`,
       [customerId, latestRun.id, currentDate, assetTypes, teamId, assetId],
     );
     const topAssets = await this.pool.query(
-      `SELECT COALESCE(NULLIF(finding.dns_name, ''), NULLIF(finding.ip_address, ''), 'Unknown asset') AS asset,
-              max(finding.ip_address) AS ip_address,
+      `SELECT COALESCE(NULLIF(matched_asset.dns_name, ''), NULLIF(matched_asset.ip_address, ''), matched_asset.asset_key, 'Unknown asset') AS asset,
+              matched_asset.ip_address AS ip_address,
               sum(finding.record_count)::bigint AS total,
               sum(finding.record_count) FILTER (WHERE finding.patch_priority = 'P1')::bigint AS p1,
               sum(finding.record_count) FILTER (WHERE finding.patch_priority = 'P2')::bigint AS p2
        FROM finding_observations finding
+       JOIN LATERAL (
+         SELECT inventory_asset.id, inventory_asset.asset_key, inventory_asset.ip_address, inventory_asset.dns_name
+         FROM customer_assets inventory_asset
+         WHERE inventory_asset.customer_id = $1
+           AND inventory_asset.in_scope
+           AND ${findingAssetMatchSql("finding", "inventory_asset")}
+         ORDER BY inventory_asset.origin = 'manual' DESC, inventory_asset.updated_at DESC
+         LIMIT 1
+       ) matched_asset ON true
        WHERE ${currentWhere}
-       GROUP BY COALESCE(NULLIF(finding.dns_name, ''), NULLIF(finding.ip_address, ''), 'Unknown asset')
+       GROUP BY matched_asset.id, matched_asset.asset_key, matched_asset.ip_address, matched_asset.dns_name
        ORDER BY total DESC, asset
        LIMIT 10`,
       [customerId, latestRun.id, currentDate, assetTypes, teamId, assetId],
@@ -1600,7 +1634,8 @@ function inventoryScopeSql(alias) {
       AND (
         scope_asset.asset_key IN (
           lower(NULLIF(trim(${alias}.ip_address), '')),
-          lower(NULLIF(trim(${alias}.dns_name), ''))
+          lower(NULLIF(trim(${alias}.dns_name), '')),
+          lower(NULLIF(trim(${alias}.asset_key), ''))
         )
         OR EXISTS (
           SELECT 1 FROM customer_asset_aliases scope_alias
@@ -1608,7 +1643,8 @@ function inventoryScopeSql(alias) {
             AND scope_alias.asset_id = scope_asset.id
             AND scope_alias.alias IN (
               lower(NULLIF(trim(${alias}.ip_address), '')),
-              lower(NULLIF(trim(${alias}.dns_name), ''))
+              lower(NULLIF(trim(${alias}.dns_name), '')),
+              lower(NULLIF(trim(${alias}.asset_key), ''))
             )
         )
       )
@@ -1624,7 +1660,8 @@ function assetTypeScopeSql(alias, parameter) {
       AND (
         access_asset.asset_key IN (
           lower(NULLIF(trim(${alias}.ip_address), '')),
-          lower(NULLIF(trim(${alias}.dns_name), ''))
+          lower(NULLIF(trim(${alias}.dns_name), '')),
+          lower(NULLIF(trim(${alias}.asset_key), ''))
         )
         OR EXISTS (
           SELECT 1 FROM customer_asset_aliases access_alias
@@ -1632,7 +1669,8 @@ function assetTypeScopeSql(alias, parameter) {
             AND access_alias.asset_id = access_asset.id
             AND access_alias.alias IN (
               lower(NULLIF(trim(${alias}.ip_address), '')),
-              lower(NULLIF(trim(${alias}.dns_name), ''))
+              lower(NULLIF(trim(${alias}.dns_name), '')),
+              lower(NULLIF(trim(${alias}.asset_key), ''))
             )
         )
       )
@@ -1663,15 +1701,18 @@ function findingAssetMatchSql(findingAlias, assetAlias) {
   return `(
     ${assetAlias}.asset_key IN (
       lower(NULLIF(trim(${findingAlias}.ip_address), '')),
-      lower(NULLIF(trim(${findingAlias}.dns_name), ''))
+      lower(NULLIF(trim(${findingAlias}.dns_name), '')),
+      lower(NULLIF(trim(${findingAlias}.asset_key), ''))
     )
     OR lower(NULLIF(trim(${assetAlias}.ip_address), '')) IN (
       lower(NULLIF(trim(${findingAlias}.ip_address), '')),
-      lower(NULLIF(trim(${findingAlias}.dns_name), ''))
+      lower(NULLIF(trim(${findingAlias}.dns_name), '')),
+      lower(NULLIF(trim(${findingAlias}.asset_key), ''))
     )
     OR lower(NULLIF(trim(${assetAlias}.dns_name), '')) IN (
       lower(NULLIF(trim(${findingAlias}.ip_address), '')),
-      lower(NULLIF(trim(${findingAlias}.dns_name), ''))
+      lower(NULLIF(trim(${findingAlias}.dns_name), '')),
+      lower(NULLIF(trim(${findingAlias}.asset_key), ''))
     )
     OR EXISTS (
       SELECT 1 FROM customer_asset_aliases ownership_alias
@@ -1679,16 +1720,44 @@ function findingAssetMatchSql(findingAlias, assetAlias) {
         AND ownership_alias.asset_id = ${assetAlias}.id
         AND ownership_alias.alias IN (
           lower(NULLIF(trim(${findingAlias}.ip_address), '')),
-          lower(NULLIF(trim(${findingAlias}.dns_name), ''))
+          lower(NULLIF(trim(${findingAlias}.dns_name), '')),
+          lower(NULLIF(trim(${findingAlias}.asset_key), ''))
         )
     )
+  )`;
+}
+
+function canonicalLifecycleKeySql(alias) {
+  return `concat_ws(
+    '|',
+    lower(COALESCE(
+      NULLIF(trim(${alias}.ip_address), ''),
+      NULLIF(trim(${alias}.dns_name), ''),
+      NULLIF(trim(${alias}.asset_key), ''),
+      NULLIF(concat_ws('/', NULLIF(trim(${alias}.namespace), ''), NULLIF(trim(${alias}.deployment), ''), NULLIF(trim(${alias}.image), '')), ''),
+      'unknown-asset'
+    )),
+    lower(CASE
+      WHEN ${alias}.source_tool = 'openshift' THEN COALESCE(
+        NULLIF(concat_ws('|', NULLIF(trim(${alias}.cve), ''), NULLIF(trim(${alias}.component), '')), ''),
+        NULLIF(trim(${alias}.source_vulnerability_id), ''),
+        NULLIF(trim(${alias}.vulnerability_name), ''),
+        'unknown-vulnerability'
+      )
+      ELSE COALESCE(
+        NULLIF(trim(${alias}.source_vulnerability_id), ''),
+        NULLIF(trim(${alias}.cve), ''),
+        NULLIF(trim(${alias}.vulnerability_name), ''),
+        'unknown-vulnerability'
+      )
+    END)
   )`;
 }
 
 async function assertFindingsMatchAssetTypes(client, customerId, findings, assetTypes) {
   const violation = await client.query(
     `SELECT item->>'findingKey' AS finding_key,
-            COALESCE(NULLIF(item->>'dnsName', ''), NULLIF(item->>'ipAddress', ''), 'Unknown asset') AS asset
+            COALESCE(NULLIF(item->>'ipAddress', ''), NULLIF(item->>'dnsName', ''), NULLIF(item->>'assetKey', ''), 'Unknown asset') AS asset
      FROM jsonb_array_elements($2::jsonb) item
      WHERE NOT EXISTS (
        SELECT 1 FROM customer_assets allowed_asset
@@ -1696,14 +1765,14 @@ async function assertFindingsMatchAssetTypes(client, customerId, findings, asset
          AND allowed_asset.in_scope
          AND allowed_asset.asset_type = ANY($3::text[])
          AND (
-           allowed_asset.asset_key IN (lower(NULLIF(item->>'ipAddress', '')), lower(NULLIF(item->>'dnsName', '')))
-           OR lower(NULLIF(allowed_asset.ip_address, '')) IN (lower(NULLIF(item->>'ipAddress', '')), lower(NULLIF(item->>'dnsName', '')))
-           OR lower(NULLIF(allowed_asset.dns_name, '')) IN (lower(NULLIF(item->>'ipAddress', '')), lower(NULLIF(item->>'dnsName', '')))
+           allowed_asset.asset_key IN (lower(NULLIF(item->>'ipAddress', '')), lower(NULLIF(item->>'dnsName', '')), lower(NULLIF(item->>'assetKey', '')))
+           OR lower(NULLIF(allowed_asset.ip_address, '')) IN (lower(NULLIF(item->>'ipAddress', '')), lower(NULLIF(item->>'dnsName', '')), lower(NULLIF(item->>'assetKey', '')))
+           OR lower(NULLIF(allowed_asset.dns_name, '')) IN (lower(NULLIF(item->>'ipAddress', '')), lower(NULLIF(item->>'dnsName', '')), lower(NULLIF(item->>'assetKey', '')))
            OR EXISTS (
              SELECT 1 FROM customer_asset_aliases allowed_alias
              WHERE allowed_alias.customer_id = $1
                AND allowed_alias.asset_id = allowed_asset.id
-               AND allowed_alias.alias IN (lower(NULLIF(item->>'ipAddress', '')), lower(NULLIF(item->>'dnsName', '')))
+               AND allowed_alias.alias IN (lower(NULLIF(item->>'ipAddress', '')), lower(NULLIF(item->>'dnsName', '')), lower(NULLIF(item->>'assetKey', '')))
            )
          )
      )

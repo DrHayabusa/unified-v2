@@ -257,6 +257,49 @@ test("finding normalization constrains priority, exposure, dates, and text", () 
   assert.equal(finding.recordCount, 2);
 });
 
+test("backend canonical finding identity ignores mutable service and description fields", () => {
+  const base = {
+    sourceTool: "tenable-sc",
+    sourceVulnerabilityId: "1001",
+    ipAddress: "10.20.1.10",
+    severity: "High",
+    patchPriority: "P2",
+    reportPeriod: "May 2026",
+  };
+  const before = normalizeFinding({
+    ...base,
+    findingKey: "untrusted-browser-key-a",
+    vulnerabilityName: "Original title",
+    cve: "CVE-2026-1001",
+    protocol: "tcp",
+    port: "443",
+  }, 0);
+  const after = normalizeFinding({
+    ...base,
+    findingKey: "untrusted-browser-key-b",
+    vulnerabilityName: "Renamed title",
+    cve: "",
+    protocol: "udp",
+    port: "8443",
+  }, 1);
+  assert.equal(before.findingKey, after.findingKey);
+  assert.notEqual(before.findingKey, "untrusted-browser-key-a");
+
+  const workload = normalizeFinding({
+    sourceTool: "openshift",
+    sourceVulnerabilityId: "CVE-2026-2001 | openssl",
+    assetKey: "team-a/app-a/image:v1",
+    namespace: "team-a",
+    deployment: "app-a",
+    image: "image:v1",
+    severity: "High",
+    patchPriority: "P2",
+    reportPeriod: "May 2026",
+  }, 2);
+  assert.equal(workload.assetKey, "team-a/app-a/image:v1");
+  assert.match(workload.findingKey, /^[a-f0-9]{8}$/);
+});
+
 test("asset inventory accepts repeated aliases for one asset and rejects cross-asset collisions", () => {
   const assets = normalizeAssetPayloads({ assets: [{ assetKey: "10.20.1.10", ipAddress: "10.20.1.10", dnsName: "server01.local", onboardingTool: "Tenable.sc", inScope: false }] });
   assert.equal(assets.length, 1);

@@ -51,18 +51,18 @@ export function normalizeFinding(finding = {}, rowIndex = 0) {
   const patchPriority = PRIORITIES.has(finding.patchPriority) ? finding.patchPriority : "P4";
   const recordCount = positiveInteger(finding.recordCount) || 1;
   const sourceTools = cleanStringArray(finding.sourceTools, 20, 80);
-  const fallbackKey = [finding.ipAddress, finding.dnsName, finding.cve || finding.vulnerabilityName, finding.protocol, finding.port]
-    .map((value) => cleanText(value, 500).toLowerCase())
-    .join("|");
+  const assetKey = cleanText(finding.assetKey, 4000);
+  const findingKey = canonicalFindingKey(finding, assetKey);
   return {
     rowIndex,
     reportPeriod: cleanText(finding.reportPeriod, 120) || "Unspecified period",
     reportPeriodDate: reportPeriodDate(finding.reportPeriod),
-    findingKey: cleanText(finding.findingKey, 1000) || fallbackKey || `row-${rowIndex}`,
+    findingKey: findingKey || `row-${rowIndex}`,
     sourceTool: cleanText(finding.sourceTool, 80) || "unknown",
     sourceTools: sourceTools.length ? sourceTools : [cleanText(finding.sourceTool, 80) || "unknown"],
     sourceDisplay: cleanText(finding.sourceDisplay, 500),
     sourceVulnerabilityId: cleanText(finding.sourceVulnerabilityId, 500),
+    assetKey,
     ipAddress: cleanText(finding.ipAddress, 500),
     dnsName: cleanText(finding.dnsName, 1000),
     vulnerabilityName: cleanText(finding.vulnerabilityName, 4000),
@@ -108,6 +108,52 @@ export function normalizeFinding(finding = {}, rowIndex = 0) {
     cvssScore: nullableBoundedNumber(finding.cvssScore, 0, 10),
     payload: jsonSafe(finding),
   };
+}
+
+function canonicalFindingKey(finding, assetKey = "") {
+  const ipAddress = normalizeIdentity(finding.ipAddress);
+  const dnsName = normalizeDns(finding.dnsName);
+  const workload = normalizeIdentity(
+    assetKey
+      || [finding.namespace, finding.deployment, finding.image].map((value) => cleanText(value, 4000)).filter(Boolean).join("/"),
+  );
+  const assetIdentity = ipAddress
+    ? `ip:${ipAddress}`
+    : dnsName
+      ? `dns:${dnsName}`
+      : workload
+        ? `asset:${workload}`
+        : "unknown-asset";
+  const sourceId = normalizeIdentity(finding.sourceVulnerabilityId);
+  const cve = cleanText(finding.cve, 2000).match(/CVE-\d{4}-\d{4,}/i)?.[0]?.toLowerCase();
+  const vulnerabilityIdentity = sourceId
+    ? `source:${sourceId}`
+    : cve
+      ? `cve:${cve}`
+      : `name:${normalizeIdentity(finding.vulnerabilityName || finding.summary) || "unknown-vulnerability"}`;
+  return buildFindingKey(assetIdentity, vulnerabilityIdentity);
+}
+
+function buildFindingKey(...parts) {
+  const text = parts.map((part) => cleanText(part, 4000).toLowerCase()).join("|");
+  let hash = 2166136261;
+  for (let index = 0; index < text.length; index += 1) {
+    hash ^= text.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return (hash >>> 0).toString(16).padStart(8, "0");
+}
+
+function normalizeIdentity(value) {
+  return cleanText(value, 4000)
+    .toLowerCase()
+    .replace(/[^a-z0-9.:_-]+/g, " ")
+    .trim()
+    .replace(/\s+/g, " ");
+}
+
+function normalizeDns(value) {
+  return normalizeIdentity(value).replace(/\.+$/, "");
 }
 
 export function normalizeCustomerPayload(payload = {}) {

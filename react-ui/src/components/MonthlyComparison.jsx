@@ -248,7 +248,7 @@ export function MonthlyComparison({ analysis, onAnalyze, selectedSource, selecte
             <div className="grid content-center gap-3 rounded-2xl border border-emerald-300/20 bg-emerald-400/8 p-5">
               <p className="mini-label">Latest {labels.singular} Calculation</p>
               <p className="text-5xl font-black text-emerald-300">{patched.patchedCount}</p>
-              <p className="text-sm font-semibold leading-6 text-slate-400">{patched.previousPeriodOpen} previous open + {patched.newVulnerabilitiesIdentifiedThisPeriod} new - {patched.currentPeriodOpen} current open</p>
+              <p className="text-sm font-semibold leading-6 text-slate-400">Previous asset + vulnerability identities absent from the current report</p>
             </div>
           </div>
         </ChartPanel>
